@@ -43,19 +43,7 @@ function Navigation(props) {
      <ul className={style.navItems}>
       <li onClick={onClickHome}>Home</li>
       <li onClick={() => onClickProfile(user.id)}>Profile</li>
-      {/* <li>
-      Options
-      <span className="pl-2">
-       <i className="arrow down"></i>
-      </span>
-     </li>
-     <li>
-      Settings
-      <span className="pl-2">
-       <i className="arrow down"></i>
-      </span>
-     </li> */}
-      <li onClick={onClickLogout}>Sign Out</li>
+      <li onClick={onClickLogout}>LogOut</li>
      </ul>
     ) : (
      <ul className={style.navItems}>
@@ -77,7 +65,9 @@ class Header extends React.PureComponent {
   if (router.pathname !== '/') {
    await router.push('/');
   }
-  search(values.search);
+  if(values.search){
+    search(values.search);
+  }
  };
 
  showMobileMenu = () => {

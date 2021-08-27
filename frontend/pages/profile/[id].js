@@ -54,9 +54,13 @@ class Profile extends React.Component {
       {data.email}
      </p>
     </div>
-    <div className="p-2 align-items-center d-flex flex-wrap justify-content-start">
-     {blogCards}
-    </div>
+    {data.blogs && data.blogs.length > 0 ? (
+      <div className="p-2 align-items-center d-flex flex-wrap justify-content-start">
+      {blogCards}
+      </div>
+    ) : (
+      <h2 className="text-center">You have not posted any blogs yet</h2>
+    )}
     {user && user.id === router.query.id && <CreateBlogButton />}
    </div>
   );

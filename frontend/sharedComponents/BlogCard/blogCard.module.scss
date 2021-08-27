@@ -1,43 +1,15 @@
 .blogCard {
-  min-height: 250px;
-  text-align: left;
+  min-height: 230px;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.14);
-  padding: 10px;
   border-radius: 8px;
 }
 
 .date {
   font-size: 11px;
-  margin: 0;
   color: gray;
 }
 
-.author {
-  cursor: pointer;
-}
-
+.author,
 .continue {
   cursor: pointer;
-  font-weight: bold;
-}
-
-@media only screen and (max-width: 600px) {
-  .blogCard {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-}
-
-@media (min-width: 768px) {
-  .blogCard {
-    width: 45%;
-    margin: 10px;
-  }
-}
-
-@media only screen and (min-width: 1025px) {
-  .blogCard {
-    width: 31%;
-    margin: 10px;
-  }
 }

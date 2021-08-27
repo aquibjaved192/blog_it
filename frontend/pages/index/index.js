@@ -28,11 +28,11 @@ class Home extends React.PureComponent {
 
   return (
    <>
-    <div className={style.container}>
      <Header searchBlogs={this.searchBlogs} />
-     {blogCards}
+     <div className={`${style.container} row ml-2 mr-2`}>
+      {blogCards}
+     </div>
      {user && <CreateBlogButton />}
-    </div>
    </>
   );
  }

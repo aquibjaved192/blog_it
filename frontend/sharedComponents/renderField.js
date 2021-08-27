@@ -10,11 +10,15 @@ const RenderField = ({
  meta: { touched, error, warning },
 }) =>
  Cssclass === undefined ? (
-  <div className="form-group">
+  <div className="form-group w-100">
    <div>
     <input
      className={`form-control ${touched && error ? 'redrim' : ''}`}
-     style={{ height: '48px' }}
+     style={{ 
+        height: '48px',
+        borderTopRightRadius: '0px',
+        borderBottomRightRadius: '0px'
+      }}
      {...input}
      placeholder={placeholder}
      type={type}

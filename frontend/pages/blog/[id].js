@@ -37,22 +37,23 @@ class Blog extends React.Component {
    <div className={style.container}>
     <Header />
     {data && data.title && (
-     <div className={style.blog}>
+     <div className={`${style.blog} m-auto`}>
       <div className="d-flex">
        <img height="70px" width="70px" src={defaultImage} alt="default-image" />
-       <div className="ml-2 border-bottom w-100 pb-2">
-        <h3 className="m-0">{data.title}</h3>
-        <small className="m-0 text-black-50">
-         {data.authorName}, {data.authorProfession}
-        </small>
-        <br />
-        <small className={`${style.date} text-black-50 m-0`}>
-         Published on : {month}&nbsp;{day},&nbsp;{year}
-        </small>
+       <div className="ml-2">
+        <div className="border-bottom w-100 pb-2">
+          <h3 className="m-0">{data.title}</h3>
+          <small className="m-0 text-black-50 d-block">
+          {data.authorName}, {data.authorProfession}
+          </small>
+          <small className="text-black-50 m-0 d-block">
+          Published on : {month}&nbsp;{day},&nbsp;{year}
+          </small>
+        </div>
+        <div className="pt-2">
+        <p>{data.content}</p>
+        </div>
        </div>
-      </div>
-      <div className={style.blogContent}>
-       <p>{data.content}</p>
       </div>
      </div>
     )}

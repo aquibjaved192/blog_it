@@ -35,19 +35,6 @@ class Login extends React.Component {
      <article className="card-body mx-auto">
       <h4 className="card-title mt-3 text-center">Sign in</h4>
       <p className="text-center">Get started with blogging journey</p>
-      <p>
-       <a href="" className={`btn btn-block ${style.btnTwitter}`}>
-        {' '}
-        <i className="fa fa-twitter"></i>   Login via Twitter
-       </a>
-       <a href="" className={`btn btn-block ${style.btnFacebook}`}>
-        {' '}
-        <i className="fa fa-facebook-f"></i>   Login via facebook
-       </a>
-      </p>
-      <p className={style.dividerText}>
-       <span className="bg-light">OR</span>
-      </p>
       {data.status && data.status === 201 && (
        <p className={`text-center ${style.olduser}`}>
         {data.message}{' '}
@@ -61,37 +48,25 @@ class Login extends React.Component {
       )}
       <form onSubmit={handleSubmit(this.onSubmit)}>
        <div className={`form-group input-group ${style.formFix}`}>
-        <div className="input-group-prepend">
-         <span className="input-group-text">
-          {' '}
-          <i className="fa fa-envelope"></i>{' '}
-         </span>
-        </div>
         <Field
          name="email"
          className="form-control form-control-lg"
          component={RenderField}
          validate={[required, email]}
          type="email"
-         placeholder="Your email"
+         placeholder="Enter email"
          size="lg"
         />
        </div>
 
        <div className={`form-group input-group ${style.formFix}`}>
-        <div className="input-group-prepend">
-         <span className="input-group-text">
-          {' '}
-          <i className="fa fa-lock"></i>{' '}
-         </span>
-        </div>
         <Field
          name="password"
          className="form-control form-control-lg"
          component={RenderField}
          validate={[required, minLength8]}
          type="password"
-         placeholder="your password"
+         placeholder="Enter password"
          size="lg"
         />
        </div>

@@ -44,7 +44,6 @@
   top: 115px;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.14);
   margin-top: 2px;
-  min-height: calc(100vh - 124px);
   display: none;
   background: #ffffff;
 }
@@ -88,7 +87,8 @@
 .searchForm button {
   border: 1px solid lightgray;
   border-left: none;
-  border-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
   font-size: 14px;
 }
 
@@ -104,7 +104,7 @@
   }
 
   .navItems li {
-    padding: 0;
+    padding: 10px;
     border-bottom: none;
   }
 
@@ -118,11 +118,11 @@
 
   .navItems {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     list-style: none;
     font-weight: bold;
-    margin: 0;
+    margin: 0 0 0 10px;
     font-size: 15px;
   }
 
