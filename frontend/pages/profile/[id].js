@@ -3,8 +3,6 @@ import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { getUserProfile } from '../../redux/reducers/userProfileReducer';
 import BlogCard from '../../sharedComponents/BlogCard/blogCard';
-import CreateBlogButton from '../../sharedComponents/createBlogButton/createBlogButton';
-import { getLocalStorage } from '../../sharedComponents/helpers';
 import defaultImage from '../../public/images/default.jpg';
 import style from './profile.module.scss';
 
@@ -15,8 +13,7 @@ class Profile extends React.Component {
  }
 
  render() {
-  const { data, router } = this.props;
-  const user = getLocalStorage('user');
+  const { data } = this.props;
 
   const blogCards =
    data.blogs &&
@@ -36,11 +33,8 @@ class Profile extends React.Component {
 
   return (
    <div className={style.container}>
-    <div
-      className={style.coverPhotoContainer}
-      style={{ backgroundImage: `url(https://picsum.photos/id/8/700/200)` }}
-    >
-    <div className={style.coverPhotoShade} />
+    <div className={`banner ${style.coverPhotoContainer}`}>
+    <div className="coverPhotoShade" />
      <div className={style.profileImage}>
       <img src={defaultImage} className={`rounded-circle`} alt="profile-pic" />
       <div className="p-3">
@@ -61,7 +55,6 @@ class Profile extends React.Component {
     ) : (
       <h2 className="text-center text-white">You have not posted any blogs yet</h2>
     )}
-    {user && user.id === router.query.id && <CreateBlogButton />}
    </div>
   );
  }

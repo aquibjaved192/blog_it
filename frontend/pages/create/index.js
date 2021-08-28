@@ -57,7 +57,7 @@ class CreateBlogPage extends React.Component {
        className={style.title}
        rows="2"
        onChange={(e) => this.handleChange(e, 'title')}
-       maxlength="50"
+       maxLength="50"
       />
       <small className="float-right text-white-50">Title length: {title.length}/50</small>
      </div>

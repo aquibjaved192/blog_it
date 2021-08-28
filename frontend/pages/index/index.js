@@ -2,8 +2,6 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 import BlogCard from '../../sharedComponents/BlogCard/blogCard';
-import CreateBlogButton from '../../sharedComponents/createBlogButton/createBlogButton';
-import { getLocalStorage } from '../../sharedComponents/helpers';
 import { showSearchChange } from '../../redux/reducers/getSearchReducer';
 import axios from 'axios';
 import style from './home.module.scss';
@@ -15,7 +13,6 @@ class Home extends React.PureComponent {
   }
 
   render() {
-    const user = getLocalStorage('user');
     let showBlogs = [];
     const { searchBlogs, showSearch, blogs } = this.props;
     showBlogs = showSearch ? searchBlogs : blogs;
@@ -26,12 +23,15 @@ class Home extends React.PureComponent {
     });
 
     return (
-    <>
-      <div className={`${style.container} row ml-2 mr-2`}>
+    <div className={style.container}>
+      <div className={`pl-3 pr-3 d-none d-lg-flex banner ${style.homeBanner}`}>
+        <h1 className="text-white font-weight-bold">Welcome</h1>
+        <div className="coverPhotoShade" />
+      </div>
+      <div className="row ml-2 mr-2">
         {blogCards}
       </div>
-      {user && <CreateBlogButton />}
-    </>
+    </div>
     );
   }
 }

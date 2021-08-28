@@ -16,6 +16,7 @@ function Navigation(props) {
   onClickLogin,
   onClickHome,
   onClickProfile,
+  pathname,
  } = props;
  const user = getLocalStorage('user');
  return (
@@ -35,19 +36,34 @@ function Navigation(props) {
      size="lg"
     />
     <button type="submit" className={`${style.searchBtn} border-secondary font-weight-bold`}>
-     Search
+     search
     </button>
    </form>
    <div id="navList" className={style.navList}>
     {user ? (
      <ul className={style.navItems}>
-      <li onClick={onClickHome}>Home</li>
-      <li onClick={() => onClickProfile(user.id)}>Profile</li>
-      <li onClick={onClickLogout}>LogOut</li>
+      <li
+        className={pathname === '/' ? 'color-primary' : 'text-white'}
+        onClick={onClickHome}
+      >
+        Home
+      </li>
+      <li
+        className={pathname === '/profile/[id]' ? 'color-primary' : 'text-white'}
+        onClick={() => onClickProfile(user.id)}
+      >
+        Profile
+      </li>
+      <li
+        className='text-white'
+        onClick={onClickLogout}
+      >
+        Logout
+      </li>
      </ul>
     ) : (
      <ul className={style.navItems}>
-      <li onClick={onClickLogin}>SignIn</li>
+      <li className='text-white' onClick={onClickLogin}>SignIn</li>
      </ul>
     )}
    </div>
@@ -105,11 +121,11 @@ class Header extends React.PureComponent {
  };
 
  render() {
-  const { handleSubmit } = this.props;
+  const { handleSubmit, router } = this.props;
   return (
    <div className={style.parentContainer}>
     <div
-     className={`${style.container} d-flex justify-content-between align-items-center pl-4 pr-4`}
+     className={`${style.container} d-flex justify-content-between align-items-center pl-3 pr-3`}
     >
      <button className="border-0 bg-transparent w-25 text-left text-white" onClick={this.onClickHome}>
       <h3 className="m-0 font-weight-bold">BLOG!T</h3>
@@ -121,6 +137,7 @@ class Header extends React.PureComponent {
       onClickLogin={this.onClickLogin}
       onClickHome={this.onClickHome}
       onClickProfile={this.onClickProfile}
+      pathname={router.pathname}
      />
      <div className={style.menuBtn} id="menuOpen" onClick={this.showMobileMenu}>
       <div className={style.menuIcon} />

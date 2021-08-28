@@ -1,5 +1,6 @@
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
+@import './reusableClasses.scss';
 
 h1,
 h2,
@@ -23,28 +24,4 @@ button {
 body {
   font-family: 'monospace', sans-serif;
   background: #1d272c;
-}
-
-.arrow {
-  border: solid black;
-  border-width: 0px 2px 2px 0;
-  display: inline-block;
-  padding: 2px;
-}
-
-.down {
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-}
-
-.cursor-pointer {
-  cursor: pointer;
-}
-
-.color-primary {
-  color: #60cccf;
-}
-
-.primary-bg {
-  background: #60cccf;
 }

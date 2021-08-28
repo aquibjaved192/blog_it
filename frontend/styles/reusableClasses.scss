@@ -1,0 +1,45 @@
+.arrow {
+  border: solid black;
+  border-width: 0px 2px 2px 0;
+  display: inline-block;
+  padding: 2px;
+}
+
+.coverPhotoShade {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(rgba(28, 38, 44, 0.2) 20%,
+      rgba(28, 38, 44, 0.4) 40%,
+      rgba(28, 38, 44, 0.6) 60%,
+      rgba(28, 38, 44, 0.9) 70%,
+      rgba(28, 38, 44, 1) 100%);
+  top: 1px;
+  left: 0;
+}
+
+.banner {
+  position: relative;
+  background-image: url('https://picsum.photos/id/8/700/200');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.color-primary {
+  color: #60cccf;
+}
+
+.primary-bg {
+  background: #60cccf;
+}
