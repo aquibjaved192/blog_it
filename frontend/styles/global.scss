@@ -12,6 +12,14 @@ span {
   font-weight: 500;
 }
 
+button {
+
+  &:hover,
+  &:focus {
+    outline: none;
+  }
+}
+
 body {
   font-family: 'monospace', sans-serif;
   background: #1d272c;

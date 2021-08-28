@@ -2,7 +2,6 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { getUserProfile } from '../../redux/reducers/userProfileReducer';
-import Header from '../../sharedComponents/Header/header';
 import BlogCard from '../../sharedComponents/BlogCard/blogCard';
 import CreateBlogButton from '../../sharedComponents/createBlogButton/createBlogButton';
 import { getLocalStorage } from '../../sharedComponents/helpers';
@@ -37,7 +36,6 @@ class Profile extends React.Component {
 
   return (
    <div className={style.container}>
-    <Header />
     <div
       className={style.coverPhotoContainer}
       style={{ backgroundImage: `url(https://picsum.photos/id/8/700/200)` }}

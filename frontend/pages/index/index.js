@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
-import Header from '../../sharedComponents/Header/header';
 import BlogCard from '../../sharedComponents/BlogCard/blogCard';
 import CreateBlogButton from '../../sharedComponents/createBlogButton/createBlogButton';
 import { getLocalStorage } from '../../sharedComponents/helpers';
@@ -28,7 +27,6 @@ class Home extends React.PureComponent {
 
     return (
     <>
-      <Header searchBlogs={this.searchBlogs} />
       <div className={`${style.container} row ml-2 mr-2`}>
         {blogCards}
       </div>

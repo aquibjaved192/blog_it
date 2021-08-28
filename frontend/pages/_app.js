@@ -1,6 +1,7 @@
 import React from 'react';
 import App from 'next/app';
 import { wrapper } from '../redux/store';
+import Header from '../sharedComponents/Header/header';
 import '../styles/global.scss';
 
 class MyApp extends App {
@@ -16,7 +17,12 @@ class MyApp extends App {
  render() {
   const { Component, pageProps } = this.props;
 
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Header />
+      <Component {...pageProps} />
+    </>
+  );
  }
 }
 

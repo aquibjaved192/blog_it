@@ -2,7 +2,6 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { getBlog } from '../../redux/reducers/getBlogReducer';
-import Header from '../../sharedComponents/Header/header';
 import defaultImage from '../../public/images/default.jpg';
 import style from './blog.module.scss';
 
@@ -40,7 +39,6 @@ class Blog extends React.Component {
   const year = date.getFullYear();
   return (
    <div className={style.container}>
-    <Header />
     {data && data.title && (
      <div className={`${style.blog} m-auto rounded`}>
       <div className="d-flex flex-column flex-lg-row flex-md-row p-2 pt-3 p-md-4 p-lg-4">

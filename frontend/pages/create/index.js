@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
-import Header from '../../sharedComponents/Header/header';
 import { create } from '../../redux/reducers/createBlogReducer';
 import style from './create.module.scss';
 import { getLocalStorage } from '../../sharedComponents/helpers';
@@ -51,7 +50,6 @@ class CreateBlogPage extends React.Component {
   const { title } = this.state;
   return (
    <div className={style.container}>
-    <Header />
     <div className={style.editors}>
      <div className="mb-4">
       <textarea
