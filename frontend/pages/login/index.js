@@ -31,20 +31,14 @@ class Login extends React.Component {
   const { handleSubmit, data } = this.props;
   return (
    <div className={style.container}>
-    <div className="card border-0">
-     <article className="card-body mx-auto">
+    <div className="card bg-transparent border-0">
+     <article className="card-body mx-auto text-white">
       <h4 className="card-title mt-3 text-center">Sign in</h4>
       <p className="text-center">Get started with blogging journey</p>
-      {data.status && data.status === 201 && (
+      {data.status && (data.status === 201 || data.status === 202) && (
        <p className={`text-center ${style.olduser}`}>
         {data.message}{' '}
-        <button type="button" className={style.login} onClick={this.goToSignUp}>
-         Register
-        </button>{' '}
        </p>
-      )}
-      {data.status && data.status === 202 && (
-       <p className={`text-center ${style.olduser}`}>{data.message} </p>
       )}
       <form onSubmit={handleSubmit(this.onSubmit)}>
        <div className={`form-group input-group ${style.formFix}`}>
@@ -72,14 +66,14 @@ class Login extends React.Component {
        </div>
 
        <div className="form-group">
-        <button type="submit" className="btn btn-primary btn-block">
+        <button type="submit" className="btn primary-bg text-white btn-block">
          {' '}
          Sign in{' '}
         </button>
        </div>
        <p className="text-center">
         Do not have an account?{' '}
-        <button type="button" className={style.login} onClick={this.goToSignUp}>
+        <button type="button" className="color-primary bg-transparent border-0" onClick={this.goToSignUp}>
          Register
         </button>{' '}
        </p>
@@ -92,7 +86,7 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
- data: state.signup.data,
+ data: state.signup.loginData,
 });
 
 const mapDispatchToProps = (dispatch) => {

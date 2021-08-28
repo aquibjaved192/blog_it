@@ -13,11 +13,12 @@ const RenderField = ({
   <div className="form-group w-100">
    <div>
     <input
-     className={`form-control ${touched && error ? 'redrim' : ''}`}
+     className={`form-control border-secondary text-white ${touched && error ? 'redrim' : ''}`}
      style={{ 
-        height: '48px',
+        height: '40px',
         borderTopRightRadius: '0px',
-        borderBottomRightRadius: '0px'
+        borderBottomRightRadius: '0px',
+        backgroundColor: '#303e46'
       }}
      {...input}
      placeholder={placeholder}
@@ -29,7 +30,7 @@ const RenderField = ({
       <p
        style={{ color: 'red', fontSize: '12px' }}
        name={error}
-       className="m-0"
+       className="m-0 font-weight-bold"
       >
        {error}
       </p>

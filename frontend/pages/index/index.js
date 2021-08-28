@@ -10,32 +10,32 @@ import axios from 'axios';
 import style from './home.module.scss';
 
 class Home extends React.PureComponent {
- componentWillUnmount() {
-  const { showSearchChange } = this.props;
-  showSearchChange(false);
- }
+  componentWillUnmount() {
+    const { showSearchChange } = this.props;
+    showSearchChange(false);
+  }
 
- render() {
-  const user = getLocalStorage('user');
-  let showBlogs = [];
-  const { blogs, searchBlogs, showSearch } = this.props;
-  showBlogs = showSearch ? searchBlogs : blogs;
-  const blogCards =
-   showBlogs.length > 0 &&
-   showBlogs.map((blog) => {
-    return <BlogCard key={blog._id} blog={blog} />;
-   });
+  render() {
+    const user = getLocalStorage('user');
+    let showBlogs = [];
+    const { searchBlogs, showSearch, blogs } = this.props;
+    showBlogs = showSearch ? searchBlogs : blogs;
+    const blogCards =
+    showBlogs.length > 0 &&
+    showBlogs.map((blog) => {
+      return <BlogCard key={blog._id} blog={blog} />;
+    });
 
-  return (
-   <>
-     <Header searchBlogs={this.searchBlogs} />
-     <div className={`${style.container} row ml-2 mr-2`}>
-      {blogCards}
-     </div>
-     {user && <CreateBlogButton />}
-   </>
-  );
- }
+    return (
+    <>
+      <Header searchBlogs={this.searchBlogs} />
+      <div className={`${style.container} row ml-2 mr-2`}>
+        {blogCards}
+      </div>
+      {user && <CreateBlogButton />}
+    </>
+    );
+  }
 }
 
 export async function getStaticProps() {

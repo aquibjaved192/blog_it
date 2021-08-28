@@ -7,7 +7,6 @@ import BlogCard from '../../sharedComponents/BlogCard/blogCard';
 import CreateBlogButton from '../../sharedComponents/createBlogButton/createBlogButton';
 import { getLocalStorage } from '../../sharedComponents/helpers';
 import defaultImage from '../../public/images/default.jpg';
-import defaultCover from '../../public/images/default-cover.gif';
 import style from './profile.module.scss';
 
 class Profile extends React.Component {
@@ -39,27 +38,30 @@ class Profile extends React.Component {
   return (
    <div className={style.container}>
     <Header />
-    <div className={style.coverPhotoContainer}>
-     <img src={defaultCover} className={style.coverPhoto} alt="cover" />
-     <img src={defaultImage} className={style.profileImage} alt="profile-pic" />
-    </div>
-    <div className="p-3">
-     <h5>{data.name}</h5>
-     <p className="m-0">
-      <strong>Profession: </strong>
-      {data.profession}
-     </p>
-     <p>
-      <strong>Email: </strong>
-      {data.email}
-     </p>
+    <div
+      className={style.coverPhotoContainer}
+      style={{ backgroundImage: `url(https://picsum.photos/id/8/700/200)` }}
+    >
+    <div className={style.coverPhotoShade} />
+     <div className={style.profileImage}>
+      <img src={defaultImage} className={`rounded-circle`} alt="profile-pic" />
+      <div className="p-3">
+        <h5 className="font-weight-bold text-white">{data.name}</h5>
+        <p className="m-0 text-white-50">
+          {data.profession}
+        </p>
+        <p className="m-0 text-white-50">
+          {data.email}
+        </p>
+      </div>
+     </div>
     </div>
     {data.blogs && data.blogs.length > 0 ? (
       <div className="p-2 align-items-center d-flex flex-wrap justify-content-start">
       {blogCards}
       </div>
     ) : (
-      <h2 className="text-center">You have not posted any blogs yet</h2>
+      <h2 className="text-center text-white">You have not posted any blogs yet</h2>
     )}
     {user && user.id === router.query.id && <CreateBlogButton />}
    </div>

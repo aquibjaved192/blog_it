@@ -4,6 +4,7 @@ import { saveLocalStorage } from '../../sharedComponents/helpers';
 
 // Action Types
 const SIGN_UP = 'SIGN_UP';
+const LOG_IN = 'LOGIN';
 
 // Action dispatchers
 export const signUp = (data) => {
@@ -43,11 +44,11 @@ export const logIn = (data) => {
   })
    .then((res) => {
     if (res.status === 200) {
-     dispatch({ type: SIGN_UP, payload: res.data.data });
+     dispatch({ type: LOG_IN, payload: res.data.data });
      saveLocalStorage('user', res.data.data);
      Router.push('/');
     } else {
-     dispatch({ type: SIGN_UP, payload: res.data });
+     dispatch({ type: LOG_IN, payload: res.data });
     }
    })
    .catch((err) => console.log(err));
@@ -55,7 +56,8 @@ export const logIn = (data) => {
 };
 
 const initialState = {
- data: {},
+ loginData: {},
+ signupData: {}
 };
 
 // Reducer
@@ -63,9 +65,11 @@ const initialState = {
 const signupReducer = (state = initialState, action) => {
  switch (action.type) {
   case SIGN_UP:
-   return { ...state, data: action.payload };
+    return { ...state, signupData: action.payload };
+  case LOG_IN:
+    return { ...state, loginData: action.payload };
   default:
-   return { ...state };
+    return { ...state };
  }
 };
 

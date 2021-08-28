@@ -6,20 +6,35 @@
   height: 50vh;
   width: 100%;
   position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin-bottom: 50px;
 }
 
-.coverPhoto {
+.coverPhotoShade {
+  position: absolute;
   height: 100%;
   width: 100%;
-  object-fit: cover;
-  z-index: 0;
+  background-image: linear-gradient(rgba(28, 38, 44, 0.2) 20%,
+      rgba(28, 38, 44, 0.4) 40%,
+      rgba(28, 38, 44, 0.6) 60%,
+      rgba(28, 38, 44, 0.9) 70%,
+      rgba(28, 38, 44, 1) 100%);
+  top: 1px;
+  left: 0;
 }
 
 .profileImage {
   position: absolute;
-  bottom: 15px;
+  bottom: 0;
   left: 15px;
-  height: 100px;
-  width: 100px;
   border-radius: 6px;
+  display: flex;
+  align-items: center;
+
+  img {
+    height: 100px;
+    width: 100px;
+  }
 }

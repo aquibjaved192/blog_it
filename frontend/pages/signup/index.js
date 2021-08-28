@@ -36,16 +36,13 @@ class SignUp extends React.Component {
   const { handleSubmit, status, message } = this.props;
   return (
    <div className={style.container}>
-    <div className="card border-0">
+    <div className="card bg-transparent border-0 text-white">
      <article className="card-body mx-auto">
       <h4 className="card-title mt-3 text-center">Create Account</h4>
       <p className="text-center">Get started with your free account</p>
       {status === 201 && (
        <p className={`text-center ${style.olduser}`}>
         {message}{' '}
-        <button type="button" className={style.login} onClick={this.goToLogin}>
-         Log In
-        </button>{' '}
        </p>
       )}
       <form onSubmit={handleSubmit(this.onSubmit)}>
@@ -96,14 +93,14 @@ class SignUp extends React.Component {
        </div>
 
        <div className="form-group">
-        <button type="submit" className="btn btn-primary btn-block">
+        <button type="submit" className="btn primary-bg text-white btn-block">
          {' '}
          Create Account{' '}
         </button>
        </div>
        <p className="text-center">
         Have an account?{' '}
-        <button type="button" className={style.login} onClick={this.goToLogin}>
+        <button type="button" className="color-primary bg-transparent border-0" onClick={this.goToLogin}>
          Log In
         </button>{' '}
        </p>
@@ -116,8 +113,8 @@ class SignUp extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
- status: state.signup.data.status,
- message: state.signup.data.message,
+ status: state.signup.signupData.status,
+ message: state.signup.signupData.message,
 });
 
 const mapDispatchToProps = (dispatch) => {

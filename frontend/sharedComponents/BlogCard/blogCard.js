@@ -32,8 +32,8 @@ class BlogCard extends React.PureComponent {
   return (
    <div className='col-lg-4 col-12 col-md-6 mb-3 p-0'>
     <div className={`${style.blogCard} ml-2 mr-2 pl-3 pr-3`}>
-      <div className={`d-flex align-items-center text-left ${style.author}`}>
-        <img height="100px" width="100px" src={defaultImage} alt="default-image" />
+      <div className={`d-flex align-items-center text-left pt-3 pb-3 ${style.author}`}>
+        <img className="rounded-circle mr-3" height="70px" width="70px" src={defaultImage} alt="default-image" />
         <div>
           <h6
           className="m-0 font-weight-bold"
@@ -41,15 +41,15 @@ class BlogCard extends React.PureComponent {
           >
           {blog.authorName}
           </h6>
-          <small>{blog.authorProfession}</small>
-          <p className={`${style.date} m-0`}>
+          <small className="text-white-50">{blog.authorProfession}</small>
+          <p className={`${style.date} m-0 text-white-50`}>
           {month}&nbsp;{day},&nbsp;{year}
           </p>
         </div>
       </div>
       <div>
-      <h6 className="font-weight-bold">{blog.title}</h6>
-      <small>
+      <h6 className="font-weight-bold text-white">{blog.title}</h6>
+      <small className="text-white-50">
         {blog.content}...
         <span
         className={`${style.continue} font-weight-bold`}

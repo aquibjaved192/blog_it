@@ -48,27 +48,27 @@ class CreateBlogPage extends React.Component {
  };
 
  render() {
-  const { title, content } = this.state;
+  const { title } = this.state;
   return (
    <div className={style.container}>
     <Header />
     <div className={style.editors}>
-     <div className="mb-5">
+     <div className="mb-4">
       <textarea
        placeholder="Enter title here..."
        className={style.title}
        rows="2"
        onChange={(e) => this.handleChange(e, 'title')}
-       maxlength="70"
+       maxlength="50"
       />
-      <small className="float-right">Title length: {title.length}/70</small>
+      <small className="float-right text-white-50">Title length: {title.length}/50</small>
      </div>
      <textarea
       placeholder="Write your content here..."
       className={style.content}
       onChange={(e) => this.handleChange(e, 'content')}
      />
-     <button onClick={this.onSubmit}>Submit</button>
+     <button className="bg-transparent font-weight-bold rounded" onClick={this.onSubmit}>Submit</button>
     </div>
    </div>
   );
