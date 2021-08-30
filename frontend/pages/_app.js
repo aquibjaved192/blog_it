@@ -3,8 +3,8 @@ import App from 'next/app';
 import { wrapper } from '../redux/store';
 import { withRouter } from 'next/router';
 import { getLocalStorage } from '../sharedComponents/helpers';
-import CreateBlogButton from '../sharedComponents/createBlogButton/createBlogButton';
-import Header from '../sharedComponents/Header/header';
+import CreateBlogButton from '../sharedComponents/createBlogButton';
+import Header from '../sharedComponents/Header';
 import '../styles/global.scss';
 
 class MyApp extends App {

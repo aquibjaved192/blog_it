@@ -61,7 +61,7 @@ class Blog extends React.Component {
         </div>
        </div>
       </div>
-      <div className="pt-2 pb-3 color-primary text-center">
+      <div className="pt-2 pb-3 text-white-50 text-center">
         <p>*******************************</p>
       </div>
      </div>

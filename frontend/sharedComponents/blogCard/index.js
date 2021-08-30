@@ -1,3 +1,4 @@
+import React from 'react';
 import defaultImage from '../../public/images/default.jpg';
 import { withRouter } from 'next/router';
 import style from './blogCard.module.scss';
@@ -30,7 +31,7 @@ class BlogCard extends React.PureComponent {
   const month = monthArray[date.getMonth()];
   const year = date.getFullYear();
   return (
-   <div className='col-lg-4 col-12 col-md-6 mb-3 p-0'>
+   <div className='col-lg-6 col-12 col-md-6 mb-3 p-0'>
     <div className={`${style.blogCard} ml-2 mr-2 pl-3 pr-3`}>
       <div className={`d-flex align-items-center text-left pt-3 pb-3 ${style.author}`}>
         <img className="rounded-circle mr-3" height="70px" width="70px" src={defaultImage} alt="default-image" />
@@ -48,16 +49,16 @@ class BlogCard extends React.PureComponent {
         </div>
       </div>
       <div>
-      <h6 className="font-weight-bold text-white">{blog.title}</h6>
-      <small className="text-white-50">
-        {blog.content}...
-        <span
-        className={`${style.continue} font-weight-bold`}
-        onClick={() => router.push(`/blog/${blog._id}`)}
-        >
-        Continue Reading
-        </span>
-      </small>
+        <h6 className="font-weight-bold text-white">{blog.title}</h6>
+        <small className="text-white-50">
+          {blog.content}...
+          <span
+          className={`${style.continue} font-weight-bold`}
+          onClick={() => router.push(`/blog/${blog._id}`)}
+          >
+          Continue Reading
+          </span>
+        </small>
       </div>
     </div>
    </div>

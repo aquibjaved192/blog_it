@@ -28,7 +28,7 @@ const RenderField = ({
     {touched &&
      ((error && (
       <p
-       style={{ color: 'red', fontSize: '12px' }}
+       style={{ color: 'red', fontSize: '10px' }}
        name={error}
        className="m-0 font-weight-bold"
       >

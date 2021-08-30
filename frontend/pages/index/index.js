@@ -1,7 +1,8 @@
 import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
-import BlogCard from '../../sharedComponents/BlogCard/blogCard';
+import BlogCard from '../../sharedComponents/blogCard';
+import Trends from '../../sharedComponents/Trends';
 import { showSearchChange } from '../../redux/reducers/getSearchReducer';
 import axios from 'axios';
 import style from './home.module.scss';
@@ -24,12 +25,17 @@ class Home extends React.PureComponent {
 
     return (
     <div className={style.container}>
-      <div className={`pl-3 pr-3 d-none d-lg-flex banner ${style.homeBanner}`}>
-        <h1 className="text-white font-weight-bold">Welcome</h1>
+      <div className={`d-none d-lg-flex banner ${style.homeBanner}`}>
+        <h1 className="text-white font-weight-bold ml-5">"Stay faithful to the stories in your head"</h1>
         <div className="coverPhotoShade" />
       </div>
-      <div className="row ml-2 mr-2">
-        {blogCards}
+      <div className="row ml-0 mr-0 mb-4 banner-body-margin justify-content-around">
+        <div className="d-none d-lg-block col-lg-3">
+          <Trends />
+        </div>
+        <div className="row m-0 col-lg-8 col-12">
+          {blogCards}
+        </div>
       </div>
     </div>
     );

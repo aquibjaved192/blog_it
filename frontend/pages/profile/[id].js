@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { getUserProfile } from '../../redux/reducers/userProfileReducer';
-import BlogCard from '../../sharedComponents/BlogCard/blogCard';
+import BlogCard from '../../sharedComponents/blogCard';
 import defaultImage from '../../public/images/default.jpg';
 import style from './profile.module.scss';
 
@@ -34,23 +34,23 @@ class Profile extends React.Component {
   return (
    <div className={style.container}>
     <div className={`banner ${style.coverPhotoContainer}`}>
-    <div className="coverPhotoShade" />
-     <div className={style.profileImage}>
-      <img src={defaultImage} className={`rounded-circle`} alt="profile-pic" />
-      <div className="p-3">
-        <h5 className="font-weight-bold text-white">{data.name}</h5>
-        <p className="m-0 text-white-50">
-          {data.profession}
-        </p>
-        <p className="m-0 text-white-50">
-          {data.email}
-        </p>
+      <div className="coverPhotoShade" />
+      <div className={style.profileImage}>
+        <img src={defaultImage} className={`rounded-circle`} alt="profile-pic" />
+        <div className="p-3">
+          <h5 className="font-weight-bold text-white">{data.name}</h5>
+          <p className="m-0 text-white-50">
+            {data.profession}
+          </p>
+          <p className="m-0 text-white-50">
+            {data.email}
+          </p>
+        </div>
       </div>
-     </div>
     </div>
     {data.blogs && data.blogs.length > 0 ? (
-      <div className="p-2 align-items-center d-flex flex-wrap justify-content-start">
-      {blogCards}
+      <div className="p-2 align-items-center banner-body-margin d-flex flex-wrap justify-content-start">
+        {blogCards}
       </div>
     ) : (
       <h2 className="text-center text-white">You have not posted any blogs yet</h2>
