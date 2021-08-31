@@ -8,7 +8,6 @@
   width: 100%;
   padding: 15px;
   border: none;
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.14);
   border-radius: 5px;
   outline: none;
   resize: none;
@@ -30,7 +29,7 @@
   background: #ffffff;
   border: 1px solid #60cccf;
   color: #60cccf;
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.14);
+  // box-shadow: 0 0 6px 0 #60cccf;
   padding: 5px 15px;
   outline: none;
 }
