@@ -24,20 +24,23 @@ class Home extends React.PureComponent {
     });
 
     return (
-    <div className={style.container}>
-      <div className={`d-none d-lg-flex banner ${style.homeBanner}`}>
-        <h1 className="text-white font-weight-bold ml-5">"Stay faithful to the stories in your head"</h1>
-        <div className="coverPhotoShade" />
-      </div>
-      <div className="row ml-0 mr-0 mb-4 banner-body-margin justify-content-around">
-        <div className="d-none d-lg-block col-lg-3">
-          <Trends />
+      <div className={style.container}>
+        <div className={`d-none d-lg-flex banner ${style.homeBanner}`}>
+          <h1 className="text-white font-weight-bold ml-5">"Stay faithful to the stories in your head"</h1>
+          <div className="coverPhotoShade" />
         </div>
-        <div className="row m-0 col-lg-8 col-12">
-          {blogCards}
+        <div className="row ml-0 mr-0 mb-4 banner-body-margin justify-content-around">
+          <div className="d-none d-lg-block col-lg-3">
+            <Trends
+              heading="Trending"
+              show={["hashtags", "blogs"]}
+            />
+          </div>
+          <div className="row m-0 col-lg-8 col-12">
+            {blogCards}
+          </div>
         </div>
       </div>
-    </div>
     );
   }
 }

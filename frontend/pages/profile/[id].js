@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { getUserProfile } from '../../redux/reducers/userProfileReducer';
+import Trends from '../../sharedComponents/Trends';
 import BlogCard from '../../sharedComponents/blogCard';
 import defaultImage from '../../public/images/default.jpg';
 import style from './profile.module.scss';
@@ -14,7 +15,6 @@ class Profile extends React.Component {
 
  render() {
   const { data } = this.props;
-
   const blogCards =
    data.blogs &&
    data.blogs.map((blog) => {
@@ -23,6 +23,7 @@ class Profile extends React.Component {
      authorName: data.name,
      authorProfession: data.profession,
      title: blog.title,
+     tags: blog.tags,
      content: blog.content,
      _id: blog._id,
      authorId: data.authorId,
@@ -35,7 +36,7 @@ class Profile extends React.Component {
    <div className={style.container}>
     <div className={`banner ${style.coverPhotoContainer}`}>
       <div className="coverPhotoShade" />
-      <div className={style.profileImage}>
+      <div className={`ml-5 ${style.profileImage}`}>
         <img src={defaultImage} className={`rounded-circle`} alt="profile-pic" />
         <div className="p-3">
           <h5 className="font-weight-bold text-white">{data.name}</h5>
@@ -49,8 +50,16 @@ class Profile extends React.Component {
       </div>
     </div>
     {data.blogs && data.blogs.length > 0 ? (
-      <div className="p-2 align-items-center banner-body-margin d-flex flex-wrap justify-content-start">
-        {blogCards}
+      <div className="row ml-0 mr-0 mb-4 banner-body-margin justify-content-around">
+        <div className="d-none d-lg-block col-lg-3">
+          <Trends
+            heading="Your most read"
+            show={["blogs"]}
+          />
+        </div>
+        <div className="row m-0 col-lg-8 col-12">
+          {blogCards}
+        </div>
       </div>
     ) : (
       <h2 className="text-center text-white">You have not posted any blogs yet</h2>

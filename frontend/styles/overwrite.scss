@@ -1,0 +1,56 @@
+.css-yk16xz-control {
+  background-color: transparent !important;
+  border-color: #6c757d !important;
+}
+
+.css-1pahdxg-control {
+  background-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.css-1pahdxg-control {
+  &:hover {
+    border-color: #6c757d !important;
+  }
+}
+
+.css-26l3qy-menu {
+  background: #1d272c !important;
+
+  div {
+    div {
+      background: none !important;
+    }
+  }
+
+  &:hover {
+    div {
+      &:hover {
+        div {
+          &:hover {
+            color: #60cccf !important;
+            background-color: #404d54 !important;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+.css-1rhbuit-multiValue {
+  background-color: transparent !important;
+  border: 1px solid #60cccf;
+
+  div {
+    color: #60cccf;
+    font-weight: bold;
+    font-size: 12px;
+  }
+}
+
+.css-xb97g8:hover {
+  color: #60cccf !important;
+  background-color: transparent !important;
+}

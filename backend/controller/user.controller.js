@@ -77,11 +77,12 @@ module.exports = {
     let blogsArray = [];
     blogs.forEach((blog) => {
      const content = blog.content.substring(0, 120);
-     const { title, postDate, _id } = blog;
+     const { title, postDate, _id, tags } = blog;
      blogsArray.push({
       title,
       content,
       postDate,
+      tags,
       _id,
      });
     });

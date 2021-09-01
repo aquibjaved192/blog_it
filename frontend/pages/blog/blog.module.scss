@@ -3,7 +3,29 @@
 }
 
 .blog {
-  max-width: 800px;
-  background: #303e46;
-  min-height: 80vh;
+  width: 100%;
+}
+
+.content {
+  box-shadow: 0 0 15px 0 #303e46;
+  top: 15vh;
+}
+
+.blogBanner {
+  height: 40vh;
+  box-shadow: 0 -10px 15px 0 #303e46;
+
+  h1 {
+    z-index: 1;
+    height: fit-content;
+    display: flex;
+    margin: 0;
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+  .blog {
+    width: 80%;
+    margin: auto;
+  }
 }

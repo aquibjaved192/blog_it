@@ -1,0 +1,29 @@
+[{
+    "value": "#general",
+    "label": "#general"
+  },
+  {
+    "value": "#technology",
+    "label": "#technology"
+  },
+  {
+    "value": "#nature",
+    "label": "#nature"
+  },
+  {
+    "value": "#science",
+    "label": "#science"
+  },
+  {
+    "value": "#art",
+    "label": "#art"
+  },
+  {
+    "value": "#travel",
+    "label": "#travel"
+  },
+  {
+    "value": "#work",
+    "label": "#work"
+  }
+]

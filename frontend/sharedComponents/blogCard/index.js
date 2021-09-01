@@ -37,19 +37,22 @@ class BlogCard extends React.PureComponent {
         <img className="rounded-circle mr-3" height="70px" width="70px" src={defaultImage} alt="default-image" />
         <div>
           <h6
-          className="m-0 font-weight-bold"
-          onClick={() => this.onClickProfile(blog.authorId)}
+            className="m-0 font-weight-bold"
+            onClick={() => this.onClickProfile(blog.authorId)}
           >
-          {blog.authorName}
+            {blog.authorName}
           </h6>
           <small className="text-white-50">{blog.authorProfession}</small>
           <p className={`${style.date} m-0 text-white-50`}>
-          {month}&nbsp;{day},&nbsp;{year}
+            {month}&nbsp;{day},&nbsp;{year}
           </p>
         </div>
       </div>
       <div>
         <h6 className="font-weight-bold text-white">{blog.title}</h6>
+        <div className="d-flex align-items-center flex-wrap">
+          {blog.tags.slice(0,4).map(item => <p className="pill mb-2">{item}</p>)}
+        </div>
         <small className="text-white-50">
           {blog.content}...
           <span

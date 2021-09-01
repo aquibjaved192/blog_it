@@ -6,37 +6,28 @@
 .title,
 .content {
   width: 100%;
-  padding: 15px;
-  border: none;
+  padding: 7px;
   border-radius: 5px;
+  background: transparent;
   outline: none;
-  resize: none;
-  background: #303e46;
   color: #ffffff;
 }
 
-.title {
-  font-size: 28px;
-  font-weight: 800;
-}
-
 .content {
-  height: 70vh;
+  height: 60vh;
 }
 
 .editors button {
-  float: right;
   background: #ffffff;
   border: 1px solid #60cccf;
   color: #60cccf;
-  // box-shadow: 0 0 6px 0 #60cccf;
   padding: 5px 15px;
   outline: none;
 }
 
 .title::-webkit-scrollbar,
 .content::-webkit-scrollbar {
-  width: 2px;
+  width: 1px;
 }
 
 .title::-webkit-scrollbar-track,
@@ -49,34 +40,31 @@
   background: #888;
 }
 
+.createBanner {
+  height: 40vh;
+  box-shadow: 0 -10px 15px 0 #303e46;
 
-@media only screen and (max-width: 600px) {
-  .editors {
-    width: 100%;
-  }
-
-  .content {
-    height: 60vh;
+  h1 {
+    z-index: 1;
+    height: fit-content;
+    display: flex;
+    margin: 0;
   }
 }
 
-@media (min-width: 768px) {
-  .editors {
-    width: 100%;
-  }
+.editors {
+  width: 100%;
+  position: relative;
+}
 
-  .content {
-    height: 70vh;
-  }
+.formBody {
+  top: 31vh;
+  box-shadow: 0 0 15px 0 #303e46;
 }
 
 @media only screen and (min-width: 1025px) {
   .editors {
-    width: 70%;
+    width: 80%;
     margin: auto;
-  }
-
-  .content {
-    height: 60vh;
   }
 }

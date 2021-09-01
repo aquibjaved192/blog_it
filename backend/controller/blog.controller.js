@@ -8,6 +8,7 @@ module.exports = {
    authorProfession: req.body.profession,
    title: req.body.title,
    content: req.body.content,
+   tags: req.body.tags,
    postDate: req.body.date,
   };
   const newBlog = new Blog(data);
