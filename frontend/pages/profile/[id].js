@@ -36,7 +36,7 @@ class Profile extends React.Component {
    <div className={style.container}>
     <div className={`banner ${style.coverPhotoContainer}`}>
       <div className="coverPhotoShade" />
-      <div className={`ml-5 ${style.profileImage}`}>
+      <div className={`ml-0 ml-lg-5 flex-column flex-md-row flex-lg-row ${style.profileImage}`}>
         <img src={defaultImage} className={`rounded-circle`} alt="profile-pic" />
         <div className="p-3">
           <h5 className="font-weight-bold text-white">{data.name}</h5>
