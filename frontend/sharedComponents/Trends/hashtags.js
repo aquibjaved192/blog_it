@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter } from 'next/router';
-import { connect } from 'react-redux';
 
 class HashTags extends React.Component {
  render() {
@@ -19,10 +18,4 @@ class HashTags extends React.Component {
  }
 }
 
-const mapStateToProps = (state) => ({});
-
-const mapDispatchToProps = (dispatch) => {};
-
-export default withRouter(
- connect(mapStateToProps, mapDispatchToProps)(HashTags)
-);
+export default withRouter(HashTags);

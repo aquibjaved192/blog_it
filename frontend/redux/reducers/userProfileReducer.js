@@ -19,8 +19,6 @@ export const getUserProfile = (id) => {
    .then((res) => {
     if (res.status === 200) {
      dispatch({ type: GET_PROFILE, payload: res.data.data });
-    } else {
-     //dispatch({ type: SIGN_UP, payload: res.data });
     }
    })
    .catch((err) => console.log(err));

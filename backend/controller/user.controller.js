@@ -63,34 +63,41 @@ module.exports = {
    }
   });
  },
+ 
  getUser: async (req, res) => {
   let response = {};
   await User.findById(req.params.id)
-   .then(async (user) => {
-    const { name, email, createdAt, profession } = user;
-    const authorId = req.params.id;
-    response = { name, email, createdAt, profession, authorId };
-   })
-   .catch((err) => res.status(400).json('Error: ' + err));
+    .then(async (user) => {
+      const { name, email, createdAt, profession } = user;
+      const authorId = req.params.id;
+      response = { name, email, createdAt, profession, authorId };
+    })
+    .catch((err) => res.status(400).json('Error: ' + err));
   await Blog.find({ authorId: req.params.id })
-   .then((blogs) => {
-    let blogsArray = [];
-    blogs.forEach((blog) => {
-     const content = blog.content.substring(0, 120);
-     const { title, postDate, _id, tags } = blog;
-     blogsArray.push({
-      title,
-      content,
-      postDate,
-      tags,
-      _id,
-     });
-    });
+    .then((blogs) => {
+      let blogsArray = [];
+      blogs.forEach((blog) => {
+        const content = blog.content.substring(0, 120);
+        const { title, postDate, _id, tags, hits } = blog;
+        blogsArray.push({
+          title,
+          content,
+          postDate,
+          tags,
+          hits,
+          _id,
+        });
+      });
+    
+      const mostRead = blogs.sort((a, b) => {
+        return b.hits - a.hits;
+      }).slice(0, 3);
 
-    response.blogs = blogsArray;
-   })
-   .catch((err) => res.status(400).json('Error: ' + err));
-  const data = { data: response };
-  res.status(200).json(data);
- },
+      response.blogs = blogsArray;
+      response.mostRead = mostRead;
+    })
+    .catch((err) => res.status(400).json('Error: ' + err));
+    const data = { data: response };
+    res.status(200).json(data);
+  },
 };

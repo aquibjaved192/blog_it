@@ -1,22 +1,21 @@
 import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
-import HashTags from './hashtags';
 import TrendingBlog from './trendingBlog';
-import Flame from '../../public/images/trending.png';
 
 class Trends extends React.Component {
   render() {
-    const { heading, show } = this.props;
+    const { heading, trends, page } = this.props;
     return (
       <div className="ml-3">
         <div className="pb-3 text-white">
           <p className="m-0 font-weight-bold">
             {heading}
           </p>
+        </div>     
+        <div className="pt-3 pb-3 text-white border-top border-secondary">
+          {trends.map(item => <TrendingBlog key={item._id} blog={item} page={page} />)}
         </div>
-        {show.includes("hashtags") && <HashTags />}
-        {show.includes("blogs") && <TrendingBlog />}
       </div>
     );
   }
@@ -24,7 +23,9 @@ class Trends extends React.Component {
 
 const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = (dispatch) => {};
+const mapDispatchToProps = (dispatch) => {
+  return{}
+};
 
 export default withRouter(
  connect(mapStateToProps, mapDispatchToProps)(Trends)

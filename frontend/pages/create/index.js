@@ -52,6 +52,7 @@ class CreateBlogPage extends React.Component {
     tags,
     content,
     date,
+    hits: 0,
    };
    create(data);
   }

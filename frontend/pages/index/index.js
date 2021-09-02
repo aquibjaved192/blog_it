@@ -23,6 +23,8 @@ class Home extends React.PureComponent {
       return <BlogCard key={blog._id} blog={blog} />;
     });
 
+    const trends = blogs.sort((a, b) => b.hits - a.hits).slice(0, 3);
+
     return (
       <div className={style.container}>
         <div className={`d-none d-lg-flex banner ${style.homeBanner}`}>
@@ -32,8 +34,9 @@ class Home extends React.PureComponent {
         <div className="row ml-0 mr-0 mb-4 banner-body-margin justify-content-around">
           <div className="d-none d-lg-block col-lg-3">
             <Trends
-              heading="Trending"
-              show={["hashtags", "blogs"]}
+              heading="Top Trending"
+              trends={trends}
+              page="home"
             />
           </div>
           <div className="row m-0 col-lg-8 col-12">

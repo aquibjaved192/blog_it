@@ -1,16 +1,18 @@
 import React from 'react';
 import defaultImage from '../../public/images/default.jpg';
 import { withRouter } from 'next/router';
+import { connect } from 'react-redux';
+import { updateBlog } from '../../redux/reducers/getBlogReducer';
 import style from './blogCard.module.scss';
 
 class BlogCard extends React.PureComponent {
- onClickProfile = (id) => {
+ onClickCard = (url) => {
   const { router } = this.props;
-  router.push(`/profile/${id}`);
+  router.push(url);
  };
 
  render() {
-  const { blog, router } = this.props;
+  const { blog } = this.props;
   const monthArray = [
    'January',
    'February',
@@ -33,12 +35,14 @@ class BlogCard extends React.PureComponent {
   return (
    <div className='col-lg-6 col-12 col-md-6 mb-3 p-0'>
     <div className={`${style.blogCard} ml-2 mr-2 pl-3 pr-3`}>
-      <div className={`d-flex align-items-center text-left pt-3 pb-3 ${style.author}`}>
+      <div 
+        className={`d-flex align-items-center text-left pt-3 pb-3 ${style.author}`} 
+        onClick={() => this.onClickCard(`/profile/${blog.authorId}`)}
+      >
         <img className="rounded-circle mr-3" height="70px" width="70px" src={defaultImage} alt="default-image" />
         <div>
           <h6
             className="m-0 font-weight-bold"
-            onClick={() => this.onClickProfile(blog.authorId)}
           >
             {blog.authorName}
           </h6>
@@ -51,13 +55,13 @@ class BlogCard extends React.PureComponent {
       <div>
         <h6 className="font-weight-bold text-white">{blog.title}</h6>
         <div className="d-flex align-items-center flex-wrap">
-          {blog.tags.slice(0,4).map(item => <p className="pill mb-2">{item}</p>)}
+          {blog.tags.slice(0,4).map(item => <p key={item} className="pill mb-2">{item}</p>)}
         </div>
         <small className="text-white-50">
           {blog.content}...
           <span
           className={`${style.continue} font-weight-bold`}
-          onClick={() => router.push(`/blog/${blog._id}`)}
+          onClick={() => this.onClickCard(`/blog/${blog._id}`)}
           >
           Continue Reading
           </span>
@@ -69,4 +73,14 @@ class BlogCard extends React.PureComponent {
  }
 }
 
-export default withRouter(BlogCard);
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+   updateBlog: (data, id) => dispatch(updateBlog(data, id)),
+  };
+ };
+
+export default withRouter(
+ connect(mapStateToProps, mapDispatchToProps)(BlogCard)
+);

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { create } from './createBlogReducer';
 
 // Action Types
 const GET_BLOG = 'GET_BLOG';
@@ -25,6 +26,25 @@ export const getBlog = (id) => {
    })
    .catch((err) => console.log(err));
  };
+};
+
+export const updateBlog = (data, id) => {
+  const url = `http://localhost:5000/updateBlog/${id}`;
+  return (dispatch) => {
+   return axios({
+    url,
+    headers: {
+     'Content-Type': 'application/json',
+    },
+    method: 'patch',
+    data,
+    responseType: 'json',
+   })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => console.log(err));
+  };
 };
 
 const initialState = {

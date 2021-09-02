@@ -52,15 +52,16 @@ class Blog extends React.Component {
               <div className="d-flex align-items-center flex-wrap">
                 {data.tags.map(item => <p className="pill mb-2">{item}</p>)} 
               </div>
-              <small onClick={this.goToProfile} className="cursor-pointer m-0 d-block font-weight-bold color-primary">
+              <small onClick={this.goToProfile} className="cursor-pointer d-block font-weight-bold color-primary">
                 {data.authorName}
               </small>
-              <small className="m-0 text-white-50 d-block">
+              <small className="text-white-50 d-block">
                 {data.authorProfession}
               </small>
-              <small className="text-white-50 m-0 d-block">
+              <small className="text-white-50">
                 {month}&nbsp;{day},&nbsp;{year}
               </small>
+              <small className="color-primary font-weight-bold float-right">views : {data.hits}</small>
             </div>
             <div className="pt-2 text-white-50">
               <p>{data.content}</p>

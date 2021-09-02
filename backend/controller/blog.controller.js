@@ -10,6 +10,7 @@ module.exports = {
    content: req.body.content,
    tags: req.body.tags,
    postDate: req.body.date,
+   hits: req.body.hits,
   };
   const newBlog = new Blog(data);
   newBlog
@@ -19,6 +20,19 @@ module.exports = {
     res.status(200).json(data);
    })
    .catch((err) => res.status(400).json('Error: ' + err));
+ },
+
+ updateBlog: async (req, res) => {
+  const blog = await Blog.findById(req.params.id);
+  for(let key in req.body) {
+    blog[key] = req.body[key];
+  }
+  blog.save()
+  .then(() => {
+    const data = { data: [], message: 'success', status: 200 };
+    res.status(200).json(data);
+  })
+  .catch((err) => res.status(400).json('Error: ' + err));
  },
 
  getAll: (req, res) => {
@@ -35,7 +49,9 @@ module.exports = {
 
  getBlog: (req, res) => {
   Blog.findById(req.params.id)
-   .then((blog) => {
+   .then(async (blog) => {
+    blog.hits = blog.hits ? blog.hits + 1 : 1;
+    await blog.save();
     const data = { data: blog };
     res.status(200).json(data);
    })

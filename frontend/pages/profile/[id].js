@@ -16,21 +16,20 @@ class Profile extends React.Component {
  render() {
   const { data } = this.props;
   const blogCards =
-   data.blogs &&
-   data.blogs.map((blog) => {
-    const blogObj = {
-     postDate: blog.postDate,
-     authorName: data.name,
-     authorProfession: data.profession,
-     title: blog.title,
-     tags: blog.tags,
-     content: blog.content,
-     _id: blog._id,
-     authorId: data.authorId,
-    };
-
+    data.blogs &&
+    data.blogs.map((blog) => {
+      const blogObj = {
+        postDate: blog.postDate,
+        authorName: data.name,
+        authorProfession: data.profession,
+        title: blog.title,
+        tags: blog.tags,
+        content: blog.content,
+        _id: blog._id,
+        authorId: data.authorId,
+      };
     return <BlogCard key={blog._id} blog={blogObj} />;
-   });
+  });
 
   return (
    <div className={style.container}>
@@ -53,8 +52,9 @@ class Profile extends React.Component {
       <div className="row ml-0 mr-0 mb-4 banner-body-margin justify-content-around">
         <div className="d-none d-lg-block col-lg-3">
           <Trends
-            heading="Your most read"
-            show={["blogs"]}
+            heading="Top Entries"
+            trends={data.mostRead}
+            page="profile"
           />
         </div>
         <div className="row m-0 col-lg-8 col-12">

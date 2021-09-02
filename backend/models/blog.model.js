@@ -31,6 +31,10 @@ const blogSchema = new Schema({
   type: Date,
   required: true,
  },
+ hits: {
+   type: Number,
+   required: true,
+ }
 });
 
 const Blog = mongoose.model('Blog', blogSchema);
