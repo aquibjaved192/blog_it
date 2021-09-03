@@ -21,6 +21,14 @@ class Navigation extends React.PureComponent {
     })
   }
 
+  checkMobile = () => {
+    const { hideMobileMenu } = this.props;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      hideMobileMenu();
+    }
+  }
+
   onClickLogout = () => {
     removeLocalStorage('user');
     window.location.replace('/');
@@ -32,34 +40,26 @@ class Navigation extends React.PureComponent {
   };
 
   onClickHome = () => {
-    const { router, hideMobileMenu } = this.props;
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-      hideMobileMenu();
-    }
+    const { router } = this.props;
+    this.checkMobile();
     router.push('/');
   };
 
   onClickProfile = (id) => {
-    const { router, hideMobileMenu } = this.props;
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-      hideMobileMenu();
-    }
+    const { router } = this.props;
+    this.checkMobile();
     router.push('/profile/[id]', `/profile/${id}`);
   };
 
   onSubmit = async (values) => {
-    const { search, router } = this.props;
+    const { search, router, initialize } = this.props;
     if(values.search){
       if (router.pathname !== '/') {
         await router.push('/');
       }
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      if (isMobile) {
-        this.hideMobileMenu();
-      }
-      search(values.search);
+      this.checkMobile();
+      await search(values.search);
+      initialize({ search: ''});
     }
   };
 

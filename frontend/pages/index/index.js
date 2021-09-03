@@ -43,17 +43,17 @@ class Home extends React.PureComponent {
     return (
       <div className={style.container}>
         <div className={`d-flex banner ${style.homeBanner}`}>
-          <h2 className="text-white font-weight-bold ml-4">"Stay faithful to the stories in your head"</h2>
+          <h2 className="text-white font-weight-bold ml-3">"Stay faithful to the stories in your head"</h2>
           <div className="coverPhotoShade" />
         </div>
         <div className="row ml-0 mr-0 mb-4 banner-body-margin justify-content-around">
-          <div className="col-12 mb-5 col-lg-3">
+          <div className="col-12 mb-5 col-lg-3 p-lg-0">
             <Trends
               heading="Top Trending"
               trends={trends}
             />
           </div>
-          <div className="row m-0 col-lg-8 col-12">
+          <div className="row m-0 col-lg-8 col-12 p-lg-0">
             {blogCards}
           </div>
         </div>

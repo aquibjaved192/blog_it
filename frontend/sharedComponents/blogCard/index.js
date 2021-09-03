@@ -33,8 +33,8 @@ class BlogCard extends React.PureComponent {
   const month = monthArray[date.getMonth()];
   const year = date.getFullYear();
   return (
-   <div className='col-lg-6 col-12 col-md-6 mb-3 p-0'>
-    <div className={`${style.blogCard} ml-lg-2 mr-lg-2 ml-md-2 mr-md-2 pb-3 pl-3 pr-2 pt-3`}>
+   <div className='col-lg-6 col-12 col-md-6 mb-2 p-0 pl-lg-1 pr-lg-1 pl-md-1 pr-md-1'>
+    <div className={`${style.blogCard} pb-3 pl-3 pr-2 pt-3`}>
       <div className={style.blogCardContent}>
         <div 
           className={`d-flex align-items-center text-left pb-3 ${style.author}`} 

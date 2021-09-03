@@ -25,7 +25,7 @@ class Header extends React.PureComponent {
     return (
       <div className={style.parentContainer}>
         <div
-        className={`${style.container} d-flex justify-content-between align-items-center pl-3 pr-3`}
+          className={`${style.container} d-flex justify-content-between align-items-center pl-3 pr-3`}
         >
           <button className="border-0 bg-transparent w-25 text-left text-white" onClick={this.onClickHome}>
             <h3 className="m-0 font-weight-bold">BLOG!T</h3>

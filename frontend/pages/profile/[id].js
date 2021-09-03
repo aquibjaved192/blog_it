@@ -36,7 +36,7 @@ class Profile extends React.Component {
    <div className={style.container}>
     <div className={`banner ${style.coverPhotoContainer}`}>
       <div className="coverPhotoShade" />
-      <div className={`ml-0 ml-lg-5 flex-row ${style.profileImage}`}>
+      <div className={`ml-0 flex-row ${style.profileImage}`}>
         <img src={defaultImage} className={`rounded-circle`} alt="profile-pic" />
         <div className="p-3">
           <h5 className="font-weight-bold text-white">{data.name}</h5>
@@ -51,13 +51,13 @@ class Profile extends React.Component {
     </div>
     {data.blogs && data.blogs.length > 0 ? (
       <div className="row ml-0 mr-0 mb-4 banner-body-margin justify-content-around">
-        <div className="col-12 col-lg-3 mb-5">
+        <div className="col-12 col-lg-3 mb-5 p-lg-0">
           <Trends
             heading="Top Entries"
             trends={data.mostRead}
           />
         </div>
-        <div className="row m-0 col-lg-8 col-12">
+        <div className="row m-0 col-lg-8 col-12 p-lg-0">
           {blogCards}
         </div>
       </div>

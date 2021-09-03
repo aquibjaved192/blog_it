@@ -7,7 +7,7 @@ class Trends extends React.Component {
   render() {
     const { heading, trends, page } = this.props;
     return (
-      <div className="ml-0 ml-lg-3">
+      <div className="ml-0">
         <div className="pb-3 text-white">
           <p className="m-0 font-weight-bold">
             {heading}
