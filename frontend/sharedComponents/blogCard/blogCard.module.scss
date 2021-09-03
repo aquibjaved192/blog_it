@@ -1,12 +1,38 @@
 .blogCard {
-  min-height: 270px;
   border-radius: 8px;
   background-color: #303e46;
 }
 
+.blogCardContent {
+  overflow: auto;
+  height: 240px;
+  width: 100%;
+}
+
+.blogCardContent::-webkit-scrollbar {
+  width: 1px;
+}
+
+.blogCardContent::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.blogCardContent::-webkit-scrollbar-thumb {
+  background: #60cccf;
+}
+
+
 .date {
   font-size: 11px;
   color: gray;
+}
+
+.content {
+  display: inline;
+
+  p {
+    margin: 0;
+  }
 }
 
 .author,

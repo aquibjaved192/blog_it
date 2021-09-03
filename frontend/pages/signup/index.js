@@ -38,8 +38,8 @@ class SignUp extends React.Component {
    <div className={style.container}>
     <div className="card bg-transparent border-0 text-white">
      <article className="card-body mx-auto">
-      <h4 className="card-title mt-3 text-center">Create Account</h4>
-      <p className="text-center">Get started with your free account</p>
+      <h4 className="card-title mt-3 text-center font-weight-bold">Create Account</h4>
+      <p className="text-center font-weight-bold">Get started with your free account</p>
       {status === 201 && (
        <p className={`text-center ${style.olduser}`}>
         {message}{' '}
@@ -47,6 +47,7 @@ class SignUp extends React.Component {
       )}
       <form onSubmit={handleSubmit(this.onSubmit)}>
        <div className={`form-group input-group ${style.formFix}`}>
+       <label className="font-weight-bold">Full Name</label>
         <Field
          name="name"
          className="form-control form-control-lg"
@@ -58,6 +59,7 @@ class SignUp extends React.Component {
         />
        </div>
        <div className={`form-group input-group ${style.formFix}`}>
+       <label className="font-weight-bold">Profession</label>
         <Field
          name="profession"
          className="form-control form-control-lg"
@@ -69,6 +71,7 @@ class SignUp extends React.Component {
         />
        </div>
        <div className={`form-group input-group ${style.formFix}`}>
+       <label className="font-weight-bold">Email</label>
         <Field
          name="email"
          className="form-control form-control-lg"
@@ -81,6 +84,7 @@ class SignUp extends React.Component {
        </div>
 
        <div className={`form-group input-group ${style.formFix}`}>
+       <label className="font-weight-bold">Password</label>
         <Field
          name="password"
          className="form-control form-control-lg"
@@ -93,16 +97,15 @@ class SignUp extends React.Component {
        </div>
 
        <div className="form-group">
-        <button type="submit" className="btn primary-bg text-white btn-block">
-         {' '}
+        <button type="submit" className="btn primary-bg btn-block color-secondary font-weight-bold">
          Create Account{' '}
         </button>
        </div>
-       <p className="text-center">
+       <p className="text-center text-small">
         Have an account?{' '}
-        <button type="button" className="color-primary bg-transparent border-0" onClick={this.goToLogin}>
+        <button type="button" className="color-primary bg-transparent border-0 font-weight-bold" onClick={this.goToLogin}>
          Log In
-        </button>{' '}
+        </button>
        </p>
       </form>
      </article>

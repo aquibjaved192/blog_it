@@ -3,8 +3,7 @@
   margin-bottom: 50px;
 }
 
-.title,
-.content {
+.title {
   width: 100%;
   padding: 7px;
   border-radius: 5px;
@@ -13,38 +12,18 @@
   color: #ffffff;
 }
 
-.content {
-  height: 60vh;
+.title::-webkit-scrollbar {
+  display: none;
 }
 
 .editors button {
-  background: #ffffff;
-  border: 1px solid #60cccf;
-  color: #60cccf;
   padding: 5px 15px;
-  outline: none;
-}
-
-.title::-webkit-scrollbar,
-.content::-webkit-scrollbar {
-  width: 1px;
-}
-
-.title::-webkit-scrollbar-track,
-.content::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-.title::-webkit-scrollbar-thumb,
-.content::-webkit-scrollbar-thumb {
-  background: #888;
 }
 
 .createBanner {
   height: 40vh;
-  box-shadow: 0 -10px 15px 0 #303e46;
 
-  h1 {
+  h2 {
     z-index: 1;
     height: fit-content;
     display: flex;
@@ -59,12 +38,19 @@
 
 .formBody {
   top: 31vh;
-  box-shadow: 0 0 15px 0 #303e46;
 }
 
 @media only screen and (min-width: 1025px) {
   .editors {
     width: 80%;
     margin: auto;
+  }
+
+  .createBanner {
+    box-shadow: 0 -10px 15px 0 #303e46;
+  }
+
+  .formBody {
+    box-shadow: 0 0 15px 0 #303e46;
   }
 }

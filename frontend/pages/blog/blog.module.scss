@@ -7,13 +7,11 @@
 }
 
 .content {
-  box-shadow: 0 0 15px 0 #303e46;
   top: 15vh;
 }
 
 .blogBanner {
   height: 40vh;
-  box-shadow: 0 -10px 15px 0 #303e46;
 
   h1 {
     z-index: 1;
@@ -27,5 +25,13 @@
   .blog {
     width: 80%;
     margin: auto;
+  }
+
+  .blogBanner {
+    box-shadow: 0 -10px 15px 0 #303e46;
+  }
+
+  .content {
+    box-shadow: 0 0 15px 0 #303e46;
   }
 }

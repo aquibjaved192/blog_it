@@ -40,6 +40,14 @@
   background: #60cccf;
 }
 
+.color-secondary {
+  color: #303e46;
+}
+
+.secondary-bg {
+  background: #303e46;
+}
+
 .text-small {
   font-size: 11px;
 }
@@ -56,8 +64,6 @@
   margin-right: 8px;
 }
 
-@media only screen and (min-width: 1025px) {
-  .banner-body-margin {
-    margin-top: -70px;
-  }
+.banner-body-margin {
+  margin-top: -70px;
 }

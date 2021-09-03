@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^29.1.0",
+    "@ckeditor/ckeditor5-react": "^1.1.0",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.0",
     "next": "^9.4.4",

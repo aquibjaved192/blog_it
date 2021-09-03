@@ -41,6 +41,7 @@ module.exports = {
     blogs.forEach((blog) => {
      blog.content = blog.content.substring(0, 120);
     });
+    blogs.sort((a, b) => b.postDate - a.postDate);
     const data = { data: blogs };
     res.status(200).json(data);
    })
@@ -50,7 +51,7 @@ module.exports = {
  getBlog: (req, res) => {
   Blog.findById(req.params.id)
    .then(async (blog) => {
-    blog.hits = blog.hits ? blog.hits + 1 : 1;
+    blog.hits = blog.hits + 1;
     await blog.save();
     const data = { data: blog };
     res.status(200).json(data);
@@ -68,6 +69,7 @@ module.exports = {
       matchedBlogs.push(blog);
      }
     });
+    matchedBlogs.sort((a, b) => b.postDate - a.postDate);
     const data = { data: matchedBlogs };
     res.status(200).json(data);
    })

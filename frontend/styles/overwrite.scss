@@ -54,3 +54,58 @@
   color: #60cccf !important;
   background-color: transparent !important;
 }
+
+
+.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable,
+.ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners,
+.ck.ck-toolbar,
+.ck.ck-button.ck-on,
+a.ck.ck-button.ck-on,
+.ck.ck-dropdown__panel,
+.ck.ck-list,
+.ck.ck-button:not(.ck-disabled):hover {
+  background: transparent !important;
+  border-color: #6c757d !important;
+}
+
+.ck.ck-reset_all * {
+  color: #ffffff !important;
+}
+
+.ck.ck-editor__top .ck-sticky-panel .ck-toolbar {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 6px !important;
+  border-bottom-right-radius: 6px !important;
+}
+
+.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable,
+.ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
+  border-top-left-radius: 6px !important;
+  border-top-right-radius: 6px !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.ck.ck-editor {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.ck.ck-editor__top .ck-sticky-panel .ck-toolbar {
+  border-top-width: 0;
+  border-bottom-width: thin !important;
+}
+
+.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable,
+.ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
+  min-height: 300px;
+}
+
+.ck.ck-editor__editable_inline> :last-child {
+  margin-bottom: 5px !important;
+}
+
+.ck.ck-editor__editable_inline> :first-child {
+  margin-top: 5px !important;
+}

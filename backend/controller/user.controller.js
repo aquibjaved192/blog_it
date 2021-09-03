@@ -88,6 +88,8 @@ module.exports = {
           _id,
         });
       });
+
+      blogsArray.sort((a, b) => b.postDate - a.postDate);
     
       const mostRead = blogs.sort((a, b) => {
         return b.hits - a.hits;

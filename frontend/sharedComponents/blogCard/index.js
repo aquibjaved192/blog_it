@@ -6,9 +6,9 @@ import { updateBlog } from '../../redux/reducers/getBlogReducer';
 import style from './blogCard.module.scss';
 
 class BlogCard extends React.PureComponent {
- onClickCard = (url) => {
+ onClickCard = (page, url) => {
   const { router } = this.props;
-  router.push(url);
+  router.push(page, url);
  };
 
  render() {
@@ -34,38 +34,46 @@ class BlogCard extends React.PureComponent {
   const year = date.getFullYear();
   return (
    <div className='col-lg-6 col-12 col-md-6 mb-3 p-0'>
-    <div className={`${style.blogCard} ml-2 mr-2 pl-3 pr-3`}>
-      <div 
-        className={`d-flex align-items-center text-left pt-3 pb-3 ${style.author}`} 
-        onClick={() => this.onClickCard(`/profile/${blog.authorId}`)}
-      >
-        <img className="rounded-circle mr-3" height="70px" width="70px" src={defaultImage} alt="default-image" />
+    <div className={`${style.blogCard} ml-lg-2 mr-lg-2 ml-md-2 mr-md-2 pb-3 pl-3 pr-2 pt-3`}>
+      <div className={style.blogCardContent}>
+        <div 
+          className={`d-flex align-items-center text-left pb-3 ${style.author}`} 
+          onClick={() => this.onClickCard('/profile/[id]', `/profile/${blog.authorId}`)}
+        >
+          <img className="rounded-circle mr-3" height="70px" width="70px" src={defaultImage} alt="default-image" />
+          <div className="w-100">
+            <h6
+              className="m-0 font-weight-bold"
+            >
+              {blog.authorName}
+              <span className="float-right text-small text-white-50 pr-2">{blog.hits} views</span>
+            </h6>
+            <small className="text-white-50">{blog.authorProfession}</small>
+            <p className={`${style.date} m-0 text-white-50`}>
+              {month}&nbsp;{day},&nbsp;{year}
+            </p>
+          </div>
+        </div>
         <div>
-          <h6
-            className="m-0 font-weight-bold"
-          >
-            {blog.authorName}
-          </h6>
-          <small className="text-white-50">{blog.authorProfession}</small>
-          <p className={`${style.date} m-0 text-white-50`}>
-            {month}&nbsp;{day},&nbsp;{year}
-          </p>
+          <h6 className="font-weight-bold text-white">{blog.title}</h6>
+          <div className="d-flex align-items-center flex-wrap">
+            {blog.tags.slice(0,4).map(item => <p key={item} className="pill mb-2">{item}</p>)}
+          </div>
+          <small className="text-white-50">
+            <div 
+              dangerouslySetInnerHTML={{
+                __html: blog.content,
+              }} 
+              className={style.content}
+            />
+            <span
+              className={`${style.continue} font-weight-bold d-inline`}
+              onClick={() => this.onClickCard('/blog/[id]', `/blog/${blog._id}`)}
+              >
+              ...Continue Reading
+            </span>
+          </small>
         </div>
-      </div>
-      <div>
-        <h6 className="font-weight-bold text-white">{blog.title}</h6>
-        <div className="d-flex align-items-center flex-wrap">
-          {blog.tags.slice(0,4).map(item => <p key={item} className="pill mb-2">{item}</p>)}
-        </div>
-        <small className="text-white-50">
-          {blog.content}...
-          <span
-          className={`${style.continue} font-weight-bold`}
-          onClick={() => this.onClickCard(`/blog/${blog._id}`)}
-          >
-          Continue Reading
-          </span>
-        </small>
       </div>
     </div>
    </div>
