@@ -75,6 +75,7 @@ class Navigation extends React.PureComponent {
       router,
       searchData,
       showSearch,
+      showSearchChange,
     } = this.props;
 
     const { isLoggedIn } = this.state;
@@ -100,13 +101,14 @@ class Navigation extends React.PureComponent {
             placeholder="Search by title..."
             size="lg"
             searchOnChange={this.searchOnChange}
+            showSearchChange={showSearchChange}
           />
           <button type="submit" className={`${style.searchBtn} border-secondary font-weight-bold`}>
             search
           </button>
-          {showSearch && searchResults.length > 0 && (
+          {showSearch && (
             <div className={`scrollBar ${style.searchList}`}>
-              {searchResults}
+              {searchResults.length > 0 ? searchResults : <div className="m-0 text-center pt-4 text-white-50">No matches found</div>}
             </div>
           )}
         </form>

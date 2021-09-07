@@ -15,6 +15,7 @@ class RenderField extends React.PureComponent {
          placeholder,
          type,
          meta: { touched, error, warning },
+         showSearchChange,
       } = this.props
       return(
          <div className="form-group w-100 mb-0">
@@ -31,6 +32,7 @@ class RenderField extends React.PureComponent {
                type={type}
                onChange={this.handleOnChange}
                autoComplete="off"
+               onBlur={() => input.onBlur(showSearchChange(false))}
             />
 
             {touched && ((error && (
