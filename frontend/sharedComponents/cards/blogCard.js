@@ -3,7 +3,7 @@ import defaultImage from '../../public/images/default.jpg';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { updateBlog } from '../../redux/reducers/getBlogReducer';
-import style from './blogCard.module.scss';
+import style from './cards.module.scss';
 
 class BlogCard extends React.PureComponent {
   onClickCard = (page, url) => {
@@ -35,7 +35,7 @@ class BlogCard extends React.PureComponent {
     return (
     <div className='col-lg-6 col-12 col-md-6 mb-2 p-0 pl-lg-1 pr-lg-1 pl-md-1 pr-md-1'>
       <div className={`${style.blogCard} pb-3 pl-3 pr-2 pt-3`}>
-        <div className={style.blogCardContent}>
+        <div className={`scrollBar ${style.blogCardContent}`}>
           <div 
             className={`d-flex align-items-center text-left pb-3 ${style.author}`} 
             onClick={() => this.onClickCard('/profile/[id]', `/profile/${blog.authorId}`)}

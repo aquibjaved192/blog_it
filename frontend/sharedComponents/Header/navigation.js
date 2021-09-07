@@ -2,7 +2,8 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import RenderField from '../renderField';
 import { withRouter } from 'next/router';
-import { maxLength50, minLength8 } from '../../validation/validations';
+import { maxLength50, minLength5 } from '../../validation/validations';
+import TrendingBlog from '../Trends/trendingBlog';
 import style from './header.module.scss';
 import { getLocalStorage, removeLocalStorage } from '../helpers';
 
@@ -52,14 +53,16 @@ class Navigation extends React.PureComponent {
   };
 
   onSubmit = async (values) => {
-    const { search, router, initialize } = this.props;
-    if(values.search){
-      if (router.pathname !== '/') {
-        await router.push('/');
-      }
-      this.checkMobile();
-      await search(values.search);
-      initialize({ search: ''});
+    const { router, showSearchChange } = this.props;
+    const key  = values.search.trim().toLowerCase().split(" ").join("%20");
+    showSearchChange(false);
+    router.push('/search/[id]', `/search/${key}`)
+  }
+
+  searchOnChange = (value) => {
+    const { search, router } = this.props;
+    if(router.pathname !== "/search/[id]"){
+      search(value, true);
     }
   };
 
@@ -68,12 +71,17 @@ class Navigation extends React.PureComponent {
     const {
       handleSubmit,
       router,
+      searchData,
+      showSearch,
     } = this.props;
 
     const { isLoggedIn } = this.state;
-  
     const user = getLocalStorage('user');
-   
+    const searchResults = Array.isArray(searchData) ? searchData.map(item => (
+      <div onClick={() => router.push('/blog/[id]', `/blog/${item._id}`)}>
+          <TrendingBlog key={item._id} blog={item}/>
+      </div>
+    )) : [];
     return (
       <>
         <form
@@ -85,14 +93,20 @@ class Navigation extends React.PureComponent {
             name="search"
             className="form-control form-control-lg"
             component={RenderField}
-            validate={[maxLength50, minLength8]}
+            validate={[maxLength50, minLength5]}
             type="text"
             placeholder="Search by title..."
             size="lg"
+            searchOnChange={this.searchOnChange}
           />
           <button type="submit" className={`${style.searchBtn} border-secondary font-weight-bold`}>
             search
           </button>
+          {showSearch && searchResults.length > 0 && (
+            <div className={`scrollBar ${style.searchList}`}>
+              {searchResults}
+            </div>
+          )}
         </form>
         <div id="navList" className={style.navList}>
           <ul className={style.navItems}>

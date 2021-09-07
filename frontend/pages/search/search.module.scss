@@ -1,0 +1,12 @@
+.container {
+  width: 100%;
+  margin: 70px auto;
+  color: #ffffff;
+  padding: 0 10px;
+}
+
+@media only screen and (min-width: 1025px) {
+  .container {
+    width: 60%;
+  }
+}

@@ -1,39 +1,41 @@
 import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
-import { search } from '../../redux/reducers/getSearchReducer';
+import { search, showSearchChange } from '../../redux/reducers/getSearchReducer';
 import style from './header.module.scss';
 import Navigation from './navigation'
 
 class Header extends React.PureComponent {
   showMobileMenu = () => {
-    document.getElementById('searchForm').style.display = 'flex';
     document.getElementById('navList').style.display = 'block';
     document.getElementById('menuOpen').style.display = 'none';
     document.getElementById('menuClose').style.display = 'block';
   };
 
   hideMobileMenu = () => {
-    document.getElementById('searchForm').style.display = 'none';
     document.getElementById('navList').style.display = 'none';
     document.getElementById('menuClose').style.display = 'none';
     document.getElementById('menuOpen').style.display = 'block';
   };
 
   render() {
-    const { search } = this.props;
+    const { search, searchData, showSearch, showSearchChange } = this.props;
     return (
       <div className={style.parentContainer}>
         <div
-          className={`${style.container} d-flex justify-content-between align-items-center pl-3 pr-3`}
+          className={`${style.container} d-flex justify-content-between align-items-center pl-0 pr-0 pl-lg-3 pr-lg-3`}
         >
-          <button className="border-0 bg-transparent w-25 text-left text-white" onClick={this.onClickHome}>
-            <h3 className="m-0 font-weight-bold">BLOG!T</h3>
+          <button className="border-0 bg-transparent text-left text-white" onClick={this.onClickHome}>
+            <h3 className="m-0 font-weight-bold d-none d-md-bock d-lg-block">BLOG!T</h3>
+            <h3 className="m-0 font-weight-bold d-block d-lg-none">!T</h3>
           </button>
           <Navigation
             onSubmit={this.onSubmit}
             hideMobileMenu={this.hideMobileMenu}
             search={search}
+            showSearch={showSearch}
+            searchData={searchData}
+            showSearchChange={showSearchChange}
           />
           <div className={style.menuBtn} id="menuOpen" onClick={this.showMobileMenu}>
             <div className={style.menuIcon} />
@@ -45,7 +47,7 @@ class Header extends React.PureComponent {
             id="menuClose"
             onClick={this.hideMobileMenu}
           >
-            X
+            &times;
           </div>
         </div>
       </div>
@@ -53,11 +55,15 @@ class Header extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  searchData: state.searchData.data,
+  showSearch: state.searchData.showSearch,
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    search: (key) => dispatch(search(key)),
+    search: (key, value) => dispatch(search(key, value)),
+    showSearchChange: (value) => dispatch(showSearchChange(value))
   };
 };
 

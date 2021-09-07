@@ -8,7 +8,7 @@ import { logIn } from '../../redux/reducers/signupReducer';
 import { getLocalStorage } from '../../sharedComponents/helpers';
 import style from '../signup/index.module.scss';
 
-class Login extends React.Component {
+class Login extends React.PureComponent {
   componentDidMount() {
     const user = getLocalStorage('user');
     const { router } = this.props;

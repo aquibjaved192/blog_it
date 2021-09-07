@@ -6,33 +6,36 @@ const SHOW_SEARCH = 'SHOW_SEARCH';
 
 // Action dispatchers
 
-export const search = (key) => {
- const url = `http://localhost:5000/search/${key}`;
- return (dispatch) => {
-  return axios({
-   url,
-   headers: {
-    'Content-Type': 'application/json',
-   },
-   method: 'get',
-   responseType: 'json',
-  })
-   .then((res) => {
-    if (res.status === 200) {
-     dispatch({ type: GET_SEARCH, payload: res.data.data });
-     dispatch(showSearchChange(true));
+export const search = (key, value) => {
+  const url = `http://localhost:5000/search/${key}`;
+  return (dispatch) => {
+    if(key.length >= 5) {
+      return axios({
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'get',
+        responseType: 'json',
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            dispatch({ type: GET_SEARCH, payload: res.data.data });
+            dispatch(showSearchChange(value));
+          }
+        })
+        .catch((err) => console.log(err));
     } else {
-     //dispatch({ type: SIGN_UP, payload: res.data });
+      dispatch({ type: GET_SEARCH, payload: [] });
+      dispatch(showSearchChange(false));
     }
-   })
-   .catch((err) => console.log(err));
- };
+  };
 };
 
 export const showSearchChange = (value) => {
- return (dispatch) => {
-  dispatch({ type: SHOW_SEARCH, payload: value });
- };
+  return (dispatch) => {
+    dispatch({ type: SHOW_SEARCH, payload: value });
+  };
 };
 
 const initialState = {

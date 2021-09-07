@@ -11,6 +11,10 @@
   position: relative;
   height: 70px;
   outline: none;
+
+  button {
+    padding: 0 10px;
+  }
 }
 
 .searchBtn {
@@ -25,6 +29,7 @@
 
 .menuBtn {
   display: block;
+  padding: 0 10px;
 }
 
 .menuIcon {
@@ -43,7 +48,7 @@
   width: 300px;
   position: absolute;
   right: 0;
-  top: 108px;
+  top: 70px;
   background: #303e46;
   margin-top: 1px;
   display: none;
@@ -73,17 +78,33 @@
 }
 
 .searchForm {
+  position: relative;
+  margin: auto;
+  display: flex;
+  width: 70%;
+}
+
+.searchForm div {
+  width: 100%;
+}
+
+.searchList {
+  top: 40px;
   position: absolute;
-  right: 0;
-  top: 70px;
-  height: 40px;
-  display: none;
+  padding: 0 20px 20px 20px;
+  background: #303e46;
+  color: white;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  max-height: 300px;
+  overflow: auto;
 }
 
 .menuClose {
   display: none;
-  font-size: 20px;
+  font-size: 40px;
   color: lightgray;
+  padding: 0 10px;
 }
 
 .searchForm button {
@@ -96,13 +117,13 @@
 
 @media only screen and (min-width: 1024px) {
   .navList {
-    width: 25%;
     position: relative;
     top: 0;
     margin-top: 0;
     min-height: fit-content;
     display: block;
     background: #1d272c;
+    width: fit-content;
   }
 
   .navItems li {
@@ -124,20 +145,11 @@
     align-items: center;
     list-style: none;
     font-weight: bold;
-    margin: 0 0 0 10px;
+    margin: 0;
     font-size: 15px;
   }
 
   .searchForm {
-    position: relative;
-    top: 0;
-    right: 0;
-    display: flex;
     width: 50%;
   }
-
-  .searchForm div {
-    width: 100%;
-  }
-
 }

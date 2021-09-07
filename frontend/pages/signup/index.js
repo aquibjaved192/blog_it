@@ -13,7 +13,7 @@ import { signUp } from '../../redux/reducers/signupReducer';
 import { getLocalStorage } from '../../sharedComponents/helpers';
 import style from './index.module.scss';
 
-class SignUp extends React.Component {
+class SignUp extends React.PureComponent {
  componentDidMount() {
   const user = getLocalStorage('user');
   const { router } = this.props;

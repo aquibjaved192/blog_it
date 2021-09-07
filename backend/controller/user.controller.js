@@ -78,32 +78,24 @@ module.exports = {
         response = { name, email, createdAt, profession, authorId };
       })
       .catch((err) => res.status(400).json('Error: ' + err));
+
     await Blog.find({ authorId: req.params.id })
       .then((blogs) => {
-        let blogsArray = [];
         blogs.forEach((blog) => {
-          const content = blog.content.substring(0, 120);
-          const { title, postDate, _id, tags, hits } = blog;
-          blogsArray.push({
-            title,
-            content,
-            postDate,
-            tags,
-            hits,
-            _id,
-          });
+          blog.content = blog.content.substring(0, 120);
         });
 
-        blogsArray.sort((a, b) => b.postDate - a.postDate);
+        blogs.sort((a, b) => b.postDate - a.postDate);
       
-        const mostRead = blogs.sort((a, b) => {
+        const topBlogs = blogs.sort((a, b) => {
           return b.hits - a.hits;
         }).slice(0, 3);
 
-        response.blogs = blogsArray;
-        response.mostRead = mostRead;
+        response.blogs = blogs;
+        response.topBlogs = topBlogs;
       })
       .catch((err) => res.status(400).json('Error: ' + err));
+      
       const data = { data: response };
       res.status(200).json(data);
   },

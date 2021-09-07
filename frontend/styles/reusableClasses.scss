@@ -65,5 +65,55 @@
 }
 
 .banner-body-margin {
-  margin-top: -70px;
+  margin-top: -15vh;
+}
+
+.bloc-tabs {
+  display: flex;
+}
+
+.tabs {
+  padding: 0px 0px 12px 0px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 15px;
+  background: transparent;
+  cursor: pointer;
+  box-sizing: content-box;
+  position: relative;
+  margin-right: 20px;
+  font-style: normal;
+  font-weight: 700;
+  outline: none;
+  border: none;
+}
+
+.active-tabs::before {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 3px;
+  background: #60cccf;
+  border-radius: 2px;
+  z-index: 1;
+}
+
+.active-tabs {
+  color: white;
+}
+
+.scrollBar::-webkit-scrollbar {
+  width: 1px;
+}
+
+.scrollBar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.scrollBar::-webkit-scrollbar-thumb {
+  background: #60cccf;
 }

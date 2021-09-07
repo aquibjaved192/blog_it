@@ -12,7 +12,7 @@ const Editor = dynamic(() => import('../../sharedComponents/editor'), {
   ssr: false,
 });
 
-class CreateBlogPage extends React.Component {
+class CreateBlogPage extends React.PureComponent {
   constructor(props) {
     super(props);
     const { data } = props;

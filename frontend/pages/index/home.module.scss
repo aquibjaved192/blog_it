@@ -4,12 +4,10 @@
 
 .homeBanner {
   height: 50vh;
-  display: flex;
-  align-items: center;
 
   h2 {
     height: fit-content;
-    margin: 0;
+    margin: 15vh 0 0 0;
     display: flex;
     z-index: 1;
   }

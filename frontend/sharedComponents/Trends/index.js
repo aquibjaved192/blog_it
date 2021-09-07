@@ -3,9 +3,9 @@ import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 import TrendingBlog from './trendingBlog';
 
-class Trends extends React.Component {
+class Trends extends React.PureComponent {
   render() {
-    const { heading, trends, page } = this.props;
+    const { heading, trends } = this.props;
     return (
       <div className="ml-0">
         <div className="pb-3 text-white">
@@ -14,7 +14,7 @@ class Trends extends React.Component {
           </p>
         </div>     
         <div className="pt-3 pb-3 text-white border-top border-secondary">
-          {trends.map(item => <TrendingBlog key={item._id} blog={item} page={page} />)}
+          {trends.map(item => <TrendingBlog key={item._id} blog={item} />)}
         </div>
       </div>
     );

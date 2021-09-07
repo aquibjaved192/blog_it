@@ -55,10 +55,14 @@ module.exports = {
     Blog.find()
     .then((blogs) => {
       blogs.forEach((blog) => {
-      blog.content = blog.content.substring(0, 120);
+        blog.content = blog.content.substring(0, 120);
       });
       blogs.sort((a, b) => b.postDate - a.postDate);
-      const data = { data: blogs };
+      const topBlogs = blogs.sort((a, b) => {
+        return b.hits - a.hits;
+      }).slice(0, 3);
+
+      const data = { data: { blogs, topBlogs } };
       res.status(200).json(data);
     })
     .catch((err) => res.status(400).json('Error: ' + err));

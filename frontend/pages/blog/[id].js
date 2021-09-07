@@ -8,7 +8,7 @@ import style from './blog.module.scss';
 import EditDeleteButtons from '../../sharedComponents/editDeleteButtons';
 import Modal from '../../sharedComponents/Modal';
 
-class Blog extends React.Component {
+class Blog extends React.PureComponent {
   constructor(props){
     super(props);
     this.state = {

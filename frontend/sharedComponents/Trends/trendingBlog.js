@@ -2,8 +2,8 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import defaultImage from '../../public/images/default.jpg';
 
-class TrendingBlog extends React.Component {
-  handleClick = (page, url, checkPage = true) => {
+class TrendingBlog extends React.PureComponent {
+  handleClick = (page, url) => {
     const { router } = this.props;
     router.push(page, url);
   }
