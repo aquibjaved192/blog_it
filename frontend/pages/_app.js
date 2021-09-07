@@ -43,7 +43,7 @@ class MyApp extends App {
     const { Component, pageProps, router } = this.props;
     const { isLoggedIn } = this.state;
     const hideHeader = router.pathname === "/login" || router.pathname === "/signup";
-    const hideCreateBlogButton = router.pathname === "/create";
+    const hideCreateBlogButton = router.pathname === "/create" || router.pathname === "/edit/[id]";
     return (
       <>
         {!hideHeader && <Header />}
