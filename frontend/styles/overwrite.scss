@@ -16,7 +16,7 @@
 }
 
 .css-26l3qy-menu {
-  background: #1d272c !important;
+  background: #76797a !important;
 
   div {
     div {
@@ -108,4 +108,28 @@ a.ck.ck-button.ck-on,
 
 .ck.ck-editor__editable_inline> :first-child {
   margin-top: 5px !important;
+}
+
+.modal-content {
+  background-color: #1d272c;
+
+  .modal-title {
+    font-weight: bold;
+    color: #ffffff;
+  }
+
+  .modal-header {
+    button {
+      color: #ffffff;
+    }
+  }
+
+  .modal-body {
+    color: #ffffff;
+  }
+
+  .modal-footer button {
+    background-color: #60cccf;
+    color: #1d272c;
+  }
 }

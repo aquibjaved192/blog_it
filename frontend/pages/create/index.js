@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { create } from '../../redux/reducers/createBlogReducer';
+import { updateBlog } from '../../redux/reducers/getBlogReducer';
 import Tags from '../../json/tags.json';
 import style from './create.module.scss';
 import { getLocalStorage } from '../../sharedComponents/helpers';
@@ -14,10 +15,11 @@ const Editor = dynamic(() => import('../../sharedComponents/editor'), {
 class CreateBlogPage extends React.Component {
   constructor(props) {
     super(props);
+    const { data } = props;
     this.state = {
-    title: '',
-    content: '',
-    selectedTags:[],
+      title: data ? data.title : '',
+      content: data ? data.content : '',
+      selectedTags:data ? data.tags?.map(item => ({ value: item, label: item })) : [],
     };
   }
 
@@ -25,8 +27,10 @@ class CreateBlogPage extends React.Component {
     const user = getLocalStorage('user');
     const { router } = this.props;           
     if (!user) {
-    router.push('/login');
+      router.push('/login');
     }
+    const ele = document.getElementById("title");
+    ele.style.height = ele.scrollHeight + 'px';
   }
 
   handleChangeTitle = (e) => {
@@ -69,6 +73,29 @@ class CreateBlogPage extends React.Component {
     }
   };
 
+  onEdit = () => {
+    const { router, updateBlog } = this.props;
+    const { title, content, selectedTags } = this.state;
+    const tags = selectedTags.map(item => item.value);
+    if (title && content) {
+      const data = {
+        title,
+        tags,
+        content
+      }
+      updateBlog(data, router.query.id);
+    }
+  }
+
+  handleSubmitClick = () => {
+    const { data } = this.props;
+    if(data) {
+      this.onEdit();
+    } else {
+      this.onSubmit();
+    }
+  }
+
   render() {
     const { title, selectedTags, content } = this.state;
     return (
@@ -82,11 +109,13 @@ class CreateBlogPage extends React.Component {
             <div className="mb-3">
               <label className="font-weight-bold">Blog Title</label>
               <textarea
+                id="title"
                 placeholder="Enter title here..."
                 className={`${style.title} border border-secondary`}
                 rows="1"
                 onChange={this.handleChangeTitle}
                 maxLength="70"
+                value={title}
               />
               <small className="float-right text-white font-weight-bold">{title.length}/70</small>
             </div>
@@ -111,7 +140,7 @@ class CreateBlogPage extends React.Component {
             <div className="text-right mt-3">
               <button
                 className="font-weight-bold rounded color-secondary border-0 primary-bg"
-                onClick={this.onSubmit}
+                onClick={this.handleSubmitClick}
               >
                 Submit
               </button>
@@ -128,6 +157,7 @@ const mapStateToProps = (state) => ({});
 const mapDispatchToProps = (dispatch) => {
   return {
     create: (data) => dispatch(create(data)),
+    updateBlog: (data, id) => dispatch(updateBlog(data, id)),
   };
 };
 

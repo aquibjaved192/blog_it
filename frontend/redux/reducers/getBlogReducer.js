@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { create } from './createBlogReducer';
-
+import Router from 'next/router'
 // Action Types
 const GET_BLOG = 'GET_BLOG';
 
@@ -20,8 +19,6 @@ export const getBlog = (id) => {
    .then((res) => {
     if (res.status === 200) {
      dispatch({ type: GET_BLOG, payload: res.data.data });
-    } else {
-     //dispatch({ type: SIGN_UP, payload: res.data });
     }
    })
    .catch((err) => console.log(err));
@@ -40,8 +37,26 @@ export const updateBlog = (data, id) => {
     data,
     responseType: 'json',
    })
-    .then((res) => {
-      console.log(res);
+    .then(() => {
+      Router.push('/blog/[id]', `/blog/${id}`);
+    })
+    .catch((err) => console.log(err));
+  };
+};
+
+export const deleteBlog = (id) => {
+  const url = `http://localhost:5000/deleteBlog/${id}`;
+  return (dispatch) => {
+   return axios({
+    url,
+    headers: {
+     'Content-Type': 'application/json',
+    },
+    method: 'delete',
+    responseType: 'json',
+   })
+    .then(() => {
+      Router.push('/');
     })
     .catch((err) => console.log(err));
   };
