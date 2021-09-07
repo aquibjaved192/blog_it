@@ -5,6 +5,7 @@ class Tabs extends React.PureComponent {
     const { toggleTab, toggleState, tabs } = this.props;
     const tab = tabs.map((item, index) => (
       <button
+        key={item}
         type="button"
         className={
           toggleState === index ? 'tabs active-tabs' : 'tabs'

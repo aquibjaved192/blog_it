@@ -54,9 +54,11 @@ class Navigation extends React.PureComponent {
 
   onSubmit = async (values) => {
     const { router, showSearchChange } = this.props;
-    const key  = values.search.trim().toLowerCase().split(" ").join("%20");
-    showSearchChange(false);
-    router.push('/search/[id]', `/search/${key}`)
+    if(values.search) {
+      const key  = values.search.trim().toLowerCase().split(" ").join("%20");
+      showSearchChange(false);
+      router.push('/search/[id]', `/search/${key}`)
+    }
   }
 
   searchOnChange = (value) => {
@@ -78,8 +80,8 @@ class Navigation extends React.PureComponent {
     const { isLoggedIn } = this.state;
     const user = getLocalStorage('user');
     const searchResults = Array.isArray(searchData) ? searchData.map(item => (
-      <div onClick={() => router.push('/blog/[id]', `/blog/${item._id}`)}>
-          <TrendingBlog key={item._id} blog={item}/>
+      <div onClick={() => router.push('/blog/[id]', `/blog/${item._id}`)}  key={item._id}>
+          <TrendingBlog blog={item}/>
       </div>
     )) : [];
     return (

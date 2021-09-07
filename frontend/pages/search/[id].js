@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { search } from '../../redux/reducers/getSearchReducer';
-import TrendingBlog from '../../sharedComponents/Trends/trendingBlog';
+import BlogCard from '../../sharedComponents/cards/blogCard';
 import style from './search.module.scss';
 
 class Search extends React.PureComponent {
@@ -24,14 +24,12 @@ class Search extends React.PureComponent {
   }
 
   render() {
-    const { searchData, router } = this.props;
+    const { searchData } = this.props;
     const searchResults = Array.isArray(searchData) ? searchData.map(item => (
-      <div onClick={() => router.push('/blog/[id]', `/blog/${item._id}`)}>
-          <TrendingBlog key={item._id} blog={item}/>
-      </div>
+      <BlogCard blog={item} key={item._id}/>
     )) : [];
     return(
-      <div className={style.container}>
+      <div className={`col-lg-8 col-12 ${style.container}`}>
         {searchResults}
       </div>
     )
