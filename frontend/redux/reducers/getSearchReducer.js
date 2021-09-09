@@ -1,15 +1,16 @@
 import axios from 'axios';
 
 // Action Types
-const GET_SEARCH = 'GET_BLOG';
+const GET_SEARCH = 'GET_SEARCH';
 const SHOW_SEARCH = 'SHOW_SEARCH';
 
 // Action dispatchers
 
 export const search = (key, value) => {
   const url = `http://localhost:5000/search/${key}`;
-  return (dispatch) => {
-    if(key.length >= 5) {
+  return (dispatch) => {;
+    if(key.trim().length >= 5) {
+      dispatch(showSearchChange(value));
       return axios({
         url,
         headers: {
@@ -17,15 +18,14 @@ export const search = (key, value) => {
         },
         method: 'get',
         responseType: 'json',
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            dispatch({ type: GET_SEARCH, payload: res.data.data });
-            dispatch(showSearchChange(value));
-          }
-        })
-        .catch((err) => console.log(err));
-    } else {
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch({ type: GET_SEARCH, payload: res.data.data });
+        }
+      })
+      .catch((err) => console.log(err));
+    } else if(key.trim().length < 5) {
       dispatch({ type: GET_SEARCH, payload: [] });
       dispatch(showSearchChange(false));
     }

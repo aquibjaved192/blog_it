@@ -41,7 +41,7 @@ class Login extends React.PureComponent {
             </p>
           )}
           <form onSubmit={handleSubmit(this.onSubmit)}>
-            <div className={`form-group input-group ${style.formFix}`}>
+            <div className={`form-group  ${style.formFix}`}>
               <label className="font-weight-bold">Email</label>
               <Field
               name="email"
@@ -54,7 +54,7 @@ class Login extends React.PureComponent {
               />
             </div>
 
-            <div className={`form-group input-group ${style.formFix}`}>
+            <div className={`form-group  ${style.formFix}`}>
               <label className="font-weight-bold">Password</label>
               <Field
               name="password"

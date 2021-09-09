@@ -10,6 +10,7 @@ class Header extends React.PureComponent {
     document.getElementById('navList').style.display = 'block';
     document.getElementById('menuOpen').style.display = 'none';
     document.getElementById('menuClose').style.display = 'block';
+    document.getElementById('menuClose').focus();
   };
 
   hideMobileMenu = () => {
@@ -19,13 +20,13 @@ class Header extends React.PureComponent {
   };
 
   render() {
-    const { search, searchData, showSearch, showSearchChange } = this.props;
+    const { search, searchData, showSearch, showSearchChange, router } = this.props;
     return (
       <div className={style.parentContainer}>
         <div
           className={`${style.container} d-flex justify-content-between align-items-center pl-0 pr-0 pl-lg-3 pr-lg-3`}
         >
-          <button className="border-0 bg-transparent text-left text-white" onClick={this.onClickHome}>
+          <button className="border-0 bg-transparent text-left text-white" onClick={() => router.push('/')}>
             <h3 className="m-0 font-weight-bold d-none d-md-bock d-lg-block">BLOG!T</h3>
             <h3 className="m-0 font-weight-bold d-block d-lg-none">!T</h3>
           </button>
@@ -46,6 +47,8 @@ class Header extends React.PureComponent {
             className={style.menuClose}
             id="menuClose"
             onClick={this.hideMobileMenu}
+            onBlur={this.hideMobileMenu}
+            tabIndex="0"
           >
             &times;
           </div>

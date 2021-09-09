@@ -80,7 +80,6 @@
 .searchForm {
   position: relative;
   margin: auto;
-  display: flex;
   width: 70%;
 }
 
@@ -89,10 +88,9 @@
 }
 
 .searchList {
-  top: 40px;
-  position: absolute;
   padding: 0 20px 20px 20px;
   background: #303e46;
+  position: absolute;
   color: white;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;

@@ -84,14 +84,12 @@ module.exports = {
   // api to fetch blogs using search by title
 
   getSearch: (req, res) => {
-    Blog.find()
+    Blog.find({'title':{'$regex':req.params.key,'$options':'i'}})
     .then((blogs) => {
       const matchedBlogs = [];
       blogs.forEach((blog) => {
-      if (blog.title.toLowerCase().includes(req.params.key.toLowerCase())) {
         blog.content = blog.content.substring(0, 120);
         matchedBlogs.push(blog);
-      }
       });
       matchedBlogs.sort((a, b) => b.postDate - a.postDate);
       const data = { data: matchedBlogs };

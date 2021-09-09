@@ -18,7 +18,7 @@ class RenderField extends React.PureComponent {
          showSearchChange,
       } = this.props
       return(
-         <div className="form-group w-100 mb-0">
+         <>
             <input
                className={`form-control border-secondary text-white ${touched && error ? 'redrim' : ''}`}
                style={{ 
@@ -32,7 +32,8 @@ class RenderField extends React.PureComponent {
                type={type}
                onChange={this.handleOnChange}
                autoComplete="off"
-               onBlur={() => input.onBlur(showSearchChange(false))}
+               tabIndex="1"
+               onBlur={() => showSearchChange && showSearchChange(false)}
             />
 
             {touched && ((error && (
@@ -48,7 +49,7 @@ class RenderField extends React.PureComponent {
                   {warning}
                </p>
             )))}
-         </div>
+         </>
       )
    }
 }

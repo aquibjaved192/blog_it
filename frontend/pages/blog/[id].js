@@ -40,6 +40,7 @@ class Blog extends React.PureComponent {
 
   render() {
     const { data } = this.props;
+    console.log({data})
     const { showDeleteConfirmModal } = this.state;
     const monthArray = [
     'January',
@@ -90,7 +91,7 @@ class Blog extends React.PureComponent {
                 <div className="border-bottom border-secondary w-100 pb-2">
                   <div className="row m-0 flex-column flex-md-row flex-lg-row align-items-lg-end align-items-md-end">
                     <h3 className="font-weight-bold text-white col-12 col-md-10 col-lg-10 p-0">{data.title}</h3>
-                    {user.id === data.authorId && (
+                    {user?.id === data.authorId && (
                       <EditDeleteButtons 
                         handleDelete={this.handleDelete}
                         handleEdit={() => this.goToPage('/edit/[id]', `/edit/${data._id}`)}
