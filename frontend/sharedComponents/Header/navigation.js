@@ -76,7 +76,7 @@ class Navigation extends React.PureComponent {
         }}
         key={item._id}
       >
-        <TrendingBlog blog={item}/>
+        <TrendingBlog blog={item} searchBox/>
       </div>
     )) : [];
     return (
@@ -118,7 +118,7 @@ class Navigation extends React.PureComponent {
                   Home
                 </li>
                 <li
-                  className={router.pathname === '/profile/[id]' ? 'color-primary' : 'text-white'}
+                  className={(router.pathname === '/profile/[id]' && router.query.id === user.id) ? 'color-primary' : 'text-white'}
                   onMouseDown={() => this.onClickProfile(user.id)}
                 >
                   Profile

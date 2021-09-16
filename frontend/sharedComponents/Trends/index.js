@@ -14,7 +14,7 @@ class Trends extends React.PureComponent {
           </p>
         </div>     
         <div className="pt-3 pb-3 text-white border-top border-secondary">
-          {trends.map(item => <TrendingBlog key={item._id} blog={item} />)}
+          {trends?.map(item => <TrendingBlog key={item._id} blog={item} />)}
         </div>
       </div>
     );

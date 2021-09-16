@@ -40,7 +40,6 @@ class Blog extends React.PureComponent {
 
   render() {
     const { data } = this.props;
-    console.log({data})
     const { showDeleteConfirmModal } = this.state;
     const monthArray = [
     'January',
@@ -75,10 +74,10 @@ class Blog extends React.PureComponent {
                 confirmDelete={this.confirmDelete}
               />
             )}
-            <div className={`banner border-secondary d-flex align-items-center ${style.blogBanner}`}>
+            <div className={`banner border-secondary d-flex align-items-center rounded ${style.blogBanner}`}>
               <div className="coverPhotoShade" />
             </div>
-            <div className={`mb-5 w-100 d-flex flex-column flex-lg-row flex-md-row p-2 pt-3 p-md-4 p-lg-4 position-absolute ${style.content}`}>
+            <div className={`rounded mb-5 w-100 d-flex flex-column flex-lg-row flex-md-row p-2 pt-3 p-md-4 p-lg-4 position-absolute ${style.content}`}>
               <img 
                 onClick={() => this.goToPage('/profile/[id]', `/profile/${data.authorId}`)} 
                 height="100px" 
@@ -89,7 +88,7 @@ class Blog extends React.PureComponent {
               />
               <div className="w-100 ml-md-4 ml-lg-4 mt-3 mt-md-0 mt-lg-0">
                 <div className="border-bottom border-secondary w-100 pb-2">
-                  <div className="row m-0 flex-column flex-md-row flex-lg-row align-items-lg-end align-items-md-end">
+                  <div className="row m-0 flex-column flex-md-row flex-lg-row align-items-lg-end align-items-md-end justify-content-between">
                     <h3 className="font-weight-bold text-white col-12 col-md-10 col-lg-10 p-0">{data.title}</h3>
                     {user?.id === data.authorId && (
                       <EditDeleteButtons 

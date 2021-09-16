@@ -51,21 +51,21 @@ module.exports = {
 
   // api to fetch all blogs on home page
 
-  getAll: (req, res) => {
-    Blog.find()
-    .then((blogs) => {
-      blogs.forEach((blog) => {
-        blog.content = blog.content.substring(0, 120);
-      });
-      blogs.sort((a, b) => b.postDate - a.postDate);
-      const topBlogs = blogs.sort((a, b) => {
-        return b.hits - a.hits;
-      }).slice(0, 3);
+  getAll: async (req, res) => {
+    const filter = req.params.filter;
+    const blogs = filter === 'all' ?
+      await Blog.find() :
+      await Blog.find({authorId : {$in: filter}});
+    blogs.forEach((blog) => {
+      blog.content = blog.content.substring(0, 120);
+    });
+    blogs.sort((a, b) => b.postDate - a.postDate);
+    const topBlogs = blogs.sort((a, b) => {
+      return b.hits - a.hits;
+    }).slice(0, 3);
 
-      const data = { data: { blogs, topBlogs } };
-      res.status(200).json(data);
-    })
-    .catch((err) => res.status(400).json('Error: ' + err));
+    const data = { data: { blogs, topBlogs } };
+    res.status(200).json(data);
   },
 
   // api to fetch a blog using id

@@ -1,13 +1,31 @@
 import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
+import { getLocalStorage } from '../../sharedComponents/helpers';
 import Body from '../../sharedComponents/body';
 import axios from 'axios';
 import style from './home.module.scss';
 
 class Home extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data : []
+    }
+  }
+
+  async componentDidMount() {
+    const user = getLocalStorage('user');
+    const filter = user ? user.following : 'all';
+    const res = await axios.get(`http://localhost:5000/getAllBlogs/${filter}`);
+    const data = res.data.data;
+    this.setState({
+      data,
+    })
+  }
+
   render() {
-    const { data } = this.props;
+    const { data } = this.state;
     return (
       <div className={style.container}>
         <div className={`d-flex banner ${style.homeBanner}`}>
@@ -23,15 +41,15 @@ class Home extends React.PureComponent {
   }
 }
 
-export async function getStaticProps() {
-  const res = await axios.get('http://localhost:5000/getAllBlogs');
-  const data = res.data.data;
-  return {
-    props: {
-      data,
-    },
-  };
-}
+// export async function getStaticProps() {
+//   const res = await axios.get('http://localhost:5000/getAllBlogs/all');
+//   const data = res.data.data;
+//   return {
+//     props: {
+//       props_data: data,
+//     },
+//   };
+// }
 
 const mapStateToProps = (state) => ({});
 

@@ -23,7 +23,7 @@ class Body extends React.PureComponent {
     switch(toggleState) {
       case 0: 
         return {
-          cards: data.blogs.map((item) => <BlogCard key={item._id} blog={item} />),
+          cards: data?.blogs?.map((item) => <BlogCard key={item._id} blog={item} />),
           trends: <Trends heading={heading} trends={data?.topBlogs} />
         }
       default: 
@@ -36,21 +36,23 @@ class Body extends React.PureComponent {
 
   render() {
     const { toggleState } = this.state;
-    const data =  this.returnData();
+    const { data } = this.props;
+    const toggleData =  this.returnData();
     return(
       <div className="banner-body-margin">
         <Tabs 
           toggleState={toggleState}
           toggleTab={this.toggleTab}
           tabs={["Blogs", "Feeds", "QnAs"]}
+          data={data}
         />
         <div className="row ml-0 mr-0 mb-3 justify-content-around">
           <div className="col-12 mb-4 col-lg-3 p-lg-0">
-            {data.trends}
+            {toggleData.trends}
           </div>
           <div className="col-lg-8 col-12 p-lg-0">
             <div className="row m-0">
-              {data.cards}
+              {toggleData.cards}
             </div>
           </div>
         </div>

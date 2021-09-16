@@ -14,7 +14,7 @@ module.exports = {
         .then((result) => {
         if (result) {
           const data = {
-          data: { id: user._id, name: user.name, profession: user.profession },
+          data: { id: user._id, name: user.name, profession: user.profession, followers: user.followers, following: user.following },
           status: 200,
           message: 'success',
           };
@@ -73,9 +73,9 @@ module.exports = {
     let response = {};
     await User.findById(req.params.id)
       .then(async (user) => {
-        const { name, email, createdAt, profession } = user;
+        const { name, email, createdAt, profession, followers, following } = user;
         const authorId = req.params.id;
-        response = { name, email, createdAt, profession, authorId };
+        response = { name, email, createdAt, profession, authorId, followers, following };
       })
       .catch((err) => res.status(400).json('Error: ' + err));
 
@@ -99,4 +99,42 @@ module.exports = {
       const data = { data: response };
       res.status(200).json(data);
   },
+
+  // api to add follower of a user
+
+  addFollower: (req, res) => {
+    let data = { data: [], message: 'success', status: 200 };
+    const process = req.params.process;
+    User.findById(req.body.followerId)
+    .then(user => {
+      let following = [...user.following];
+      if(process === 'follow'){
+        following = [...following, req.body.followingId];
+      } else {
+        const index = following.indexOf(req.body.followingId);
+        following.splice(index, 1);
+      }
+      user.following = following;
+      user.save()
+      .then(() => {
+        User.findById(req.body.followingId)
+        .then(userNew => {
+          let followers = [...userNew.followers];
+          if(process === 'follow'){
+            followers = [...followers, req.body.followerId];
+          } else {
+            const index = followers.indexOf(req.body.followerId);
+            followers.splice(index, 1);
+          }
+          userNew.followers = followers;
+          userNew.save()
+          .then(() => {
+            res.status(200).json(data);
+          })
+          .catch((err) => res.status(400).json('Error: ' + err));
+        });
+      })
+      .catch((err) => res.status(400).json('Error: ' + err));
+    });
+  }
 };
