@@ -88,7 +88,6 @@
 }
 
 .searchList {
-  padding: 0 20px 20px 20px;
   background: #303e46;
   position: absolute;
   color: white;
@@ -111,6 +110,10 @@
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   font-size: 14px;
+}
+
+.activeSearch {
+  background: rgba(96, 204, 207, 0.2);
 }
 
 @media only screen and (min-width: 1024px) {

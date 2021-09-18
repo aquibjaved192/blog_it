@@ -9,6 +9,13 @@ class RenderField extends React.PureComponent {
       }
    }
 
+   componentDidUpdate(prevProps) {
+      const { selectedSearch, input } = this.props;
+      if(selectedSearch && prevProps.selectedSearch !== selectedSearch) {
+         input.onChange(selectedSearch.title);
+      }
+   }
+
    render() {
       const {
          input,
@@ -16,6 +23,7 @@ class RenderField extends React.PureComponent {
          type,
          meta: { touched, error, warning },
          showSearchChange,
+         handleKeyDown
       } = this.props
       return(
          <>
@@ -34,6 +42,7 @@ class RenderField extends React.PureComponent {
                autoComplete="off"
                tabIndex="1"
                onBlur={() => showSearchChange && showSearchChange(false)}
+               onKeyDown={(e) => handleKeyDown && handleKeyDown(e)}
             />
 
             {touched && ((error && (

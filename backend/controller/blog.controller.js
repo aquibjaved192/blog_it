@@ -1,4 +1,5 @@
 let Blog = require('../models/blog.model');
+let User = require('../models/user.model');
 
 module.exports = {
   // api to add a new blog
@@ -53,9 +54,20 @@ module.exports = {
 
   getAll: async (req, res) => {
     const filter = req.params.filter;
-    const blogs = filter === 'all' ?
-      await Blog.find() :
-      await Blog.find({authorId : {$in: filter}});
+    let blogs = [];
+
+    if (filter === 'all') {
+      blogs = await Blog.find();
+    } else {
+      const user = await User.findById(req.params.filter);
+      const following = user.following;
+      if(following.length > 0) {
+        blogs = await Blog.find({authorId : {$in: following}});
+      } else {
+        blogs = await Blog.find();
+      }
+    }
+     
     blogs.forEach((blog) => {
       blog.content = blog.content.substring(0, 120);
     });

@@ -26,6 +26,16 @@ class Body extends React.PureComponent {
           cards: data?.blogs?.map((item) => <BlogCard key={item._id} blog={item} />),
           trends: <Trends heading={heading} trends={data?.topBlogs} />
         }
+      case 1: 
+        return {
+          cards: <h2 className="text-center text-white">Coming soon...</h2>,
+          trends: <div />
+        }
+      case 2: 
+        return {
+          cards: <h2 className="text-center text-white">Coming soon...</h2>,
+          trends: <div />
+        }
       default: 
         return {
           cards: <div />,

@@ -16,7 +16,7 @@ class Home extends React.PureComponent {
 
   async componentDidMount() {
     const user = getLocalStorage('user');
-    const filter = user ? user.following : 'all';
+    const filter = user ? user.id : 'all';
     const res = await axios.get(`http://localhost:5000/getAllBlogs/${filter}`);
     const data = res.data.data;
     this.setState({

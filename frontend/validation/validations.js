@@ -11,7 +11,7 @@ export const maxLength = (max) => (value) =>
 export const maxLength15 = maxLength(15);
 export const maxLength20 = maxLength(20);
 export const maxLength10 = maxLength(10);
-export const maxLength50 = maxLength(50);
+export const maxLength70 = maxLength(70);
 export const maxLength6 = maxLength(6);
 
 export const minLength = (min) => (value) =>

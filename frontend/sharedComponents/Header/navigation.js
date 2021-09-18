@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import RenderField from '../renderField';
 import { withRouter } from 'next/router';
-import { maxLength50, minLength5 } from '../../validation/validations';
+import { maxLength70 } from '../../validation/validations';
 import TrendingBlog from '../Trends/trendingBlog';
 import style from './header.module.scss';
 import { getLocalStorage, removeLocalStorage } from '../helpers';
@@ -11,7 +11,9 @@ class Navigation extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false
+      isLoggedIn: false,
+      cursor: -1,
+      selectedSearch: '',
     }
   }
 
@@ -57,6 +59,24 @@ class Navigation extends React.PureComponent {
     }
   };
 
+  handleKeyDown = (e) => {
+    const { cursor } = this.state;
+    const { searchData } = this.props;
+    // arrow up/down button should select next/previous list element
+
+    if (e.keyCode === 38 && cursor > 0) {
+      this.setState( prevState => ({
+        cursor: prevState.cursor - 1,
+        selectedSearch: searchData[prevState.cursor - 1],
+      }))
+    } else if (e.keyCode === 40 && cursor < searchData.length - 1) {
+      this.setState( prevState => ({
+        cursor: prevState.cursor + 1,
+        selectedSearch: searchData[prevState.cursor + 1],
+      }))
+    }
+  }
+
 
   render(){
     const {
@@ -67,14 +87,17 @@ class Navigation extends React.PureComponent {
       showSearchChange,
     } = this.props;
 
-    const { isLoggedIn } = this.state;
+    const { isLoggedIn, cursor, selectedSearch } = this.state;
     const user = getLocalStorage('user');
-    const searchResults = Array.isArray(searchData) ? searchData.map(item => (
+    const searchResults = Array.isArray(searchData) ? searchData.map((item, index) => (
       <div
         onMouseDown={() => {
           router.push('/blog/[id]', `/blog/${item._id}`);
         }}
         key={item._id}
+        className={`${cursor === index ? style.activeSearch : null} pl-3 pr-3`}
+        tabIndex={index}
+        id={item._id}
       >
         <TrendingBlog blog={item} searchBox/>
       </div>
@@ -90,12 +113,14 @@ class Navigation extends React.PureComponent {
               name="search"
               className="form-control form-control-lg"
               component={RenderField}
-              validate={[maxLength50]}
+              validate={[maxLength70]}
               type="text"
               placeholder="Search by title..."
               size="lg"
               searchOnChange={this.searchOnChange}
               showSearchChange={showSearchChange}
+              handleKeyDown={this.handleKeyDown}
+              selectedSearch={selectedSearch}
             />
             <button type="submit" className={`${style.searchBtn} border-secondary font-weight-bold`}>
               search
