@@ -93,7 +93,7 @@
   color: white;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-  max-height: 300px;
+  height: auto;
   overflow: auto;
 }
 
@@ -114,6 +114,10 @@
 
 .activeSearch {
   background: rgba(96, 204, 207, 0.2);
+}
+
+.hoverSearch:hover {
+  background: rgba(96, 204, 207, 0.1);
 }
 
 @media only screen and (min-width: 1024px) {

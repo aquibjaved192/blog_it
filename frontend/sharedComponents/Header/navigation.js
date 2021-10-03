@@ -55,7 +55,7 @@ class Navigation extends React.PureComponent {
   searchOnChange = (value) => {
     const { search, router } = this.props;
     if(router.pathname !== "/search/[id]"){
-      search(value, true);
+      search(value, true, 5);
     }
   };
 
@@ -63,7 +63,6 @@ class Navigation extends React.PureComponent {
     const { cursor } = this.state;
     const { searchData } = this.props;
     // arrow up/down button should select next/previous list element
-
     if (e.keyCode === 38 && cursor > 0) {
       this.setState( prevState => ({
         cursor: prevState.cursor - 1,
@@ -76,8 +75,7 @@ class Navigation extends React.PureComponent {
       }))
     }
   }
-
-
+  
   render(){
     const {
       handleSubmit,
@@ -95,9 +93,10 @@ class Navigation extends React.PureComponent {
           router.push('/blog/[id]', `/blog/${item._id}`);
         }}
         key={item._id}
-        className={`${cursor === index ? style.activeSearch : null} pl-3 pr-3`}
+        className={`${cursor === index ? style.activeSearch : null} pl-3 pr-3 ${style.hoverSearch}`}
         tabIndex={index}
         id={item._id}
+        onKeyDown={this.handleKeyDown}
       >
         <TrendingBlog blog={item} searchBox/>
       </div>
@@ -118,9 +117,9 @@ class Navigation extends React.PureComponent {
               placeholder="Search by title..."
               size="lg"
               searchOnChange={this.searchOnChange}
-              showSearchChange={showSearchChange}
               handleKeyDown={this.handleKeyDown}
               selectedSearch={selectedSearch}
+              showSearchChange={showSearchChange}
             />
             <button type="submit" className={`${style.searchBtn} border-secondary font-weight-bold`}>
               search
@@ -128,7 +127,14 @@ class Navigation extends React.PureComponent {
           </div>
           {showSearch && (
             <div className={`scrollBar ${style.searchList}`}>
-              {searchResults.length > 0 ? searchResults : <div className="m-0 text-center pt-4 text-white-50">No matches found</div>}
+              {searchResults.length > 0 ? (
+                <>
+                  <div className="m-0 text-center text-small text-white-50 pt-3">Press search to see more</div>
+                  {searchResults}
+                </>
+              ) : (
+                <div className="m-0 text-center pt-4 pb-4 text-white-50">No matches found</div>
+              )}
             </div>
           )}
         </form>

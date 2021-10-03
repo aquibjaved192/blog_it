@@ -27,3 +27,16 @@ body {
   font-family: 'monospace', sans-serif;
   background: #1d272c;
 }
+
+body::-webkit-scrollbar {
+  width: 5px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #1d272c;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #60cccf;
+  border-radius: 8px;
+}

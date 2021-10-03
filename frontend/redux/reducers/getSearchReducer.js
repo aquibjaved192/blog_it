@@ -6,8 +6,8 @@ const SHOW_SEARCH = 'SHOW_SEARCH';
 
 // Action dispatchers
 
-export const search = (key, value) => {
-  const url = `http://localhost:5000/search/${key}`;
+export const search = (key, value, count = 0) => {
+  const url = `http://localhost:5000/search/${key}&${count}`;
   return (dispatch) => {;
     if(key.trim().length >= 5) {
       dispatch(showSearchChange(value));

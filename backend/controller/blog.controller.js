@@ -96,7 +96,7 @@ module.exports = {
   // api to fetch blogs using search by title
 
   getSearch: (req, res) => {
-    Blog.find({'title':{'$regex':req.params.key,'$options':'i'}})
+    Blog.find({'title':{'$regex':req.params.key.split('&')[0],'$options':'i'}})
     .then((blogs) => {
       const matchedBlogs = [];
       blogs.forEach((blog) => {
@@ -104,7 +104,8 @@ module.exports = {
         matchedBlogs.push(blog);
       });
       matchedBlogs.sort((a, b) => b.postDate - a.postDate);
-      const data = { data: matchedBlogs };
+      const count = req.params.key.split('&')[1];
+      const data = { data: count==='5' ? matchedBlogs.slice(0, 5) : matchedBlogs };
       res.status(200).json(data);
     })
     .catch((err) => res.status(400).json('Error: ' + err));

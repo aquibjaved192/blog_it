@@ -65,7 +65,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    search: (key, value) => dispatch(search(key, value)),
+    search: (key, value, count) => dispatch(search(key, value, count)),
     showSearchChange: (value) => dispatch(showSearchChange(value))
   };
 };
