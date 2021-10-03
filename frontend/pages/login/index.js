@@ -17,9 +17,9 @@ class Login extends React.PureComponent {
     }
   }
 
-  goToSignUp = () => {
+  goTo = (route) => {
     const { router } = this.props;
-    router.push('/signup');
+    router.push(route);
   };
 
   onSubmit = (values) => {
@@ -31,55 +31,60 @@ class Login extends React.PureComponent {
     const { handleSubmit, data } = this.props;
     return (
       <div className={style.container}>
-        <div className="card bg-transparent border-0">
-        <article className="card-body mx-auto text-white">
-          <h4 className="card-title mt-3 text-center font-weight-bold">Sign in</h4>
-          <p className="text-center font-weight-bold">Get started with blogging journey</p>
-          {data.status && (data.status === 201 || data.status === 202) && (
-            <p className={`text-center ${style.olduser}`}>
-              {data.message}{' '}
-            </p>
-          )}
-          <form onSubmit={handleSubmit(this.onSubmit)}>
-            <div className={`form-group  ${style.formFix}`}>
-              <label className="font-weight-bold">Email</label>
-              <Field
-              name="email"
-              className="form-control form-control-lg"
-              component={RenderField}
-              validate={[required, email]}
-              type="email"
-              placeholder="Enter email"
-              size="lg"
-              />
-            </div>
+        <div className="card secondary-bg border-0">
+          <article className="card-body mx-auto text-white">
+            <h4 className="card-title mt-3 text-center font-weight-bold">Sign in</h4>
+            <p className="text-center font-weight-bold">Get started with blogging journey</p>
+            {data.status && (data.status === 201 || data.status === 202) && (
+              <p className={`text-center ${style.olduser}`}>
+                {data.message}{' '}
+              </p>
+            )}
+            <form onSubmit={handleSubmit(this.onSubmit)}>
+              <div className={`form-group  ${style.formFix}`}>
+                <label className="font-weight-bold">Email</label>
+                <Field
+                name="email"
+                className="form-control form-control-lg"
+                component={RenderField}
+                validate={[required, email]}
+                type="email"
+                placeholder="Enter email"
+                size="lg"
+                />
+              </div>
 
-            <div className={`form-group  ${style.formFix}`}>
-              <label className="font-weight-bold">Password</label>
-              <Field
-              name="password"
-              className="form-control form-control-lg"
-              component={RenderField}
-              validate={[required, minLength8]}
-              type="password"
-              placeholder="Enter password"
-              size="lg"
-              />
-            </div>
+              <div className={`form-group  ${style.formFix}`}>
+                <label className="font-weight-bold">Password</label>
+                <Field
+                name="password"
+                className="form-control form-control-lg"
+                component={RenderField}
+                validate={[required, minLength8]}
+                type="password"
+                placeholder="Enter password"
+                size="lg"
+                />
+              </div>
 
-            <div className="form-group">
-              <button type="submit" className="btn primary-bg btn-block font-weight-bold color-secondary">
-                Sign in
-              </button>
-            </div>
-            <p className="text-center text-small">
-              Do not have an account?{' '}
-              <button type="button" className="color-primary bg-transparent border-0 font-weight-bold" onClick={this.goToSignUp}>
-                Register
-              </button>
+              <div className="form-group">
+                <button type="submit" className="btn primary-bg btn-block font-weight-bold color-secondary">
+                  Sign in
+                </button>
+              </div>
+              <p className="text-center text-small">
+                Do not have an account?
+                <button type="button" className="color-primary bg-transparent border-0 font-weight-bold" onClick={() => this.goTo('/signup')}>
+                  Register
+                </button>
+              </p>
+              <p className="text-center text-small">
+                <button type="button" className={`color-primary bg-transparent border-0 font-weight-bold ${style.underline}`} onClick={() => this.goTo('/')}>
+                  I want to go Home
+                </button>
             </p>
-          </form>
-        </article>
+            </form>
+          </article>
         </div>
       </div>
     );
