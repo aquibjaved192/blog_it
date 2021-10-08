@@ -46,7 +46,10 @@ class BlogCard extends React.PureComponent {
                 className="m-0 font-weight-bold"
               >
                 {blog.authorName}
-                <span className="float-right text-small text-white-50 pr-2">{blog.hits} views</span>
+                <div className="float-right">
+                  <span className="text-small text-white-50 pr-2 d-block mb-1">{blog.hits} views</span>
+                  <span className="text-small text-white-50 pr-2 d-block">{blog.likes.length} likes</span>
+                </div>
               </h6>
               <small className="text-white-50">{blog.authorProfession}</small>
               <p className={`${style.date} m-0 text-white-50`}>

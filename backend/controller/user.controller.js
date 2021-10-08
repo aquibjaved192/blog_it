@@ -105,6 +105,7 @@ module.exports = {
   addFollower: (req, res) => {
     let data = { data: [], message: 'success', status: 200 };
     const process = req.params.process;
+    console.log("********",req.body)
     User.findById(req.body.followerId)
     .then(user => {
       let following = [...user.following];

@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
-import { getBlog, deleteBlog } from '../../redux/reducers/getBlogReducer';
+import { getBlog, deleteBlog, likeUnlikeBlog } from '../../redux/reducers/getBlogReducer';
 import { getLocalStorage } from '../../sharedComponents/helpers';
 import defaultImage from '../../public/images/default.jpg';
 import style from './blog.module.scss';
@@ -12,13 +12,28 @@ class Blog extends React.PureComponent {
   constructor(props){
     super(props);
     this.state = {
-      showDeleteConfirmModal: false
+      showDeleteConfirmModal: false,
+      liked: false,
+      likesCount: 0,
     }
   }
 
   componentDidMount() {
     const { getBlog, router } = this.props;
     getBlog(router.query.id);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { data } = this.props;
+    const user = getLocalStorage('user');
+    if(JSON.stringify(prevProps.data) !== JSON.stringify(data)) {
+      if(user && data && data.likes) {
+        this.setState({
+          liked: data.likes.includes(user.id),
+          likesCount: data.likes.length,
+        });
+      }
+    }
   }
 
   goToPage = (pageName, pageUrl) => {
@@ -38,9 +53,20 @@ class Blog extends React.PureComponent {
     deleteBlog(router.query.id);
   }
 
+  handleLike = async () => {
+    const { liked } = this.state;
+    const { likeUnlikeBlog, router } = this.props;
+    const user = getLocalStorage('user');
+    const likesCount = await likeUnlikeBlog(router.query.id, user.id);
+    this.setState({
+      liked: !liked,
+      likesCount,
+    });
+  }
+
   render() {
     const { data } = this.props;
-    const { showDeleteConfirmModal } = this.state;
+    const { showDeleteConfirmModal, liked, likesCount } = this.state;
     const monthArray = [
     'January',
     'February',
@@ -77,7 +103,7 @@ class Blog extends React.PureComponent {
             <div className={`banner border-secondary d-flex align-items-center rounded ${style.blogBanner}`}>
               <div className="coverPhotoShade" />
             </div>
-            <div className={`rounded mb-5 w-100 d-flex flex-column flex-lg-row flex-md-row p-2 pt-3 p-md-4 p-lg-4 position-absolute ${style.content}`}>
+            <div className={`rounded w-100 d-flex flex-column flex-lg-row flex-md-row p-2 pt-3 p-md-4 p-lg-4 position-absolute ${style.content}`}>
               <img 
                 onClick={() => this.goToPage('/profile/[id]', `/profile/${data.authorId}`)} 
                 height="100px" 
@@ -115,11 +141,33 @@ class Blog extends React.PureComponent {
                   <small className="text-white-50 font-weight-bold float-right">{data.hits} views</small>
                 </div>
                 <div 
-                  className="pt-2 text-white-50" 
+                  className="pt-2 text-white-50 mb-3" 
                   dangerouslySetInnerHTML={{
                     __html: data.content,
                   }} 
                 />
+                <small className="color-primary font-weight-bold pt-3">{likesCount} Likes</small>
+                {user && (
+                  <div className='mb-3 border border-secondary rounded'>
+                    <button
+                      className={`${liked ? 'primary-bg color-secondary' : 'bg-transparent text-white'} border-0 font-weight-bold pb-2 pt-2 rounded w-100`}
+                      onClick={this.handleLike}
+                    >
+                      <svg 
+                        width="15" 
+                        height="15" 
+                        viewBox="0 0 13 12" 
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path 
+                          d="M12.9785 3.57828C12.7888 1.50469 11.3104 0.000248228 9.46029 0.000248228C8.22771 0.000248228 7.09914 0.658765 6.4641 1.71418C5.83481 0.645113 4.75249 0 3.53966 0C1.6898 0 0.211204 1.50444 0.0216922 3.57803C0.00669125 3.66962 -0.0548127 4.15166 0.132199 4.93776C0.401716 6.07161 1.02426 7.10295 1.93206 7.91958L6.4611 12L11.0679 7.91983C11.9757 7.10295 12.5982 6.07186 12.8678 4.93776C13.0548 4.15191 12.9933 3.66987 12.9785 3.57828Z" 
+                          fill={`${liked ? "#303e46" : "#ffffff"}`}>
+                        </path>
+                      </svg>
+                        {' '}{liked ? "You liked it" : "Give it a like"}
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -137,6 +185,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getBlog: (id) => dispatch(getBlog(id)),
     deleteBlog: (id) => dispatch(deleteBlog(id)),
+    likeUnlikeBlog: (blogId, userId) => dispatch(likeUnlikeBlog(blogId, userId)),
   };
 };
 

@@ -27,7 +27,7 @@ export const getUserProfile = (id) => {
 };
 
 export const followUser = (process ,followerId, followingId) => {
-  const url = `http://localhost:5000/${process}`;
+  const url = `http://localhost:5000/following/${process}`;
   return (dispatch) => {
    return axios({
     url,

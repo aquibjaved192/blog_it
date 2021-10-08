@@ -34,6 +34,10 @@ const blogSchema = new Schema({
  hits: {
    type: Number,
    required: true,
+ },
+ likes: {
+   type: Array,
+   required: false,
  }
 });
 

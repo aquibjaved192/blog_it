@@ -13,6 +13,7 @@ module.exports = {
     tags: req.body.tags,
     postDate: req.body.date,
     hits: req.body.hits,
+    likes: [],
     };
     const newBlog = new Blog(data);
     newBlog
@@ -110,4 +111,23 @@ module.exports = {
     })
     .catch((err) => res.status(400).json('Error: ' + err));
   },
+
+  likeBlog: async (req, res) => {
+    const blog = await Blog.findById(req.params.id);
+    const userId = req.body.userId;
+    const likes = Object.assign(blog.likes);
+    if(likes.includes(userId)) {
+      const index = likes.indexOf(userId);
+      likes.splice(index, 1);
+      blog.likes = likes;
+    } else {
+      blog.likes.push(userId);
+    }
+    blog.save()
+    .then(() => {
+      const data = { data: blog.likes.length, message: 'success', status: 200 };
+      res.status(200).json(data);
+    })
+    .catch((err) => res.status(400).json('Error: ' + err));
+  }
 };

@@ -7,7 +7,7 @@ const CREATE_BLOG = 'CREATE_BLOG';
 // Action dispatchers
 
 export const create = (data) => {
- const url = `http://localhost:5000/createBlog`;
+ const url = `http://localhost:5000/blog/create`;
  return (dispatch) => {
   return axios({
    url,
