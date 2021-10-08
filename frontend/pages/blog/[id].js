@@ -27,9 +27,9 @@ class Blog extends React.PureComponent {
     const { data } = this.props;
     const user = getLocalStorage('user');
     if(JSON.stringify(prevProps.data) !== JSON.stringify(data)) {
-      if(user && data && data.likes) {
+      if(data && data.likes) {
         this.setState({
-          liked: data.likes.includes(user.id),
+          liked: user ? data.likes.includes(user.id) : false,
           likesCount: data.likes.length,
         });
       }
