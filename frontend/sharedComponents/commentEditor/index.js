@@ -82,7 +82,7 @@ class CommentEditor extends React.PureComponent {
             />
           </div>
         </div>
-        <div className="text-right mt-2">
+        <div className="text-right mt-2 mb-5">
           <button
             className="rounded color-primary pl-3 pr-3 primary-border bg-transparent"
             onClick={this.postData}

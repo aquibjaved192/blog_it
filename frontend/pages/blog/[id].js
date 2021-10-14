@@ -68,6 +68,8 @@ class Blog extends React.PureComponent {
   handleShowComments = () => {
     this.setState({
       showComments: true,
+    }, () => {
+      window.scrollBy(0,100)
     })
   }
 
@@ -150,7 +152,7 @@ class Blog extends React.PureComponent {
                 src={defaultImage} 
                 alt="default-image" 
               />
-              <div className="w-100 ml-md-4 ml-lg-4 mt-3 mt-md-0 mt-lg-0">
+              <div className="w-100 ml-md-4 ml-lg-4 mt-3 mt-md-0 mt-lg-0 mb-5 mb-lg-4">
                 <div className="border-bottom border-secondary w-100 pb-2">
                   <div className="row m-0 flex-column flex-md-row flex-lg-row align-items-lg-end align-items-md-end justify-content-between">
                     <h3 className="font-weight-bold text-white col-12 col-md-10 col-lg-10 p-0">{data.title}</h3>
@@ -231,7 +233,7 @@ class Blog extends React.PureComponent {
                   </div>
                 </div>
                 {showComments && (
-                  <div className='mb-5 mb-lg-4'>
+                  <div className=''>
                     {comments.map(item => (
                       <div className="d-flex pt-3">
                         <img className="rounded-circle mr-3" height="35px" width="35px" src={defaultImage} alt="default-image" />
