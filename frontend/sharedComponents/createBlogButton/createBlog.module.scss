@@ -12,3 +12,29 @@
   width: 60px;
   text-align: center;
 }
+
+.container {
+  box-shadow: 0 0 0 0 rgba(#60cccf, .5);
+  border-radius: 50%;
+  animation: pulse 1.5s 10;
+}
+
+.container:hover {
+  animation: none;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(.90);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 50px rgba(#60cccf, 0);
+  }
+
+  100% {
+    transform: scale(0.90);
+    box-shadow: 0 0 0 0 rgba(#60cccf, 0);
+  }
+}

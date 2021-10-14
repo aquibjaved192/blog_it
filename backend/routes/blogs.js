@@ -7,6 +7,7 @@ router.get('/getBlog/:id', blogController.getBlog);
 router.get('/search/:key', blogController.getSearch);
 router.patch('/updateBlog/:id', blogController.updateBlog);
 router.delete('/deleteBlog/:id', blogController.deleteBlog);
-router.patch('/like/:id', blogController.likeBlog);
+router.patch('/blog/like/:id', blogController.likeBlog);
+// router.post('/blog/comment', blogController.blogComment);
 
 module.exports = router;

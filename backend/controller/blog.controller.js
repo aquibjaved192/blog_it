@@ -114,18 +114,18 @@ module.exports = {
 
   likeBlog: async (req, res) => {
     const blog = await Blog.findById(req.params.id);
-    const userId = req.body.userId;
+    const user = req.body.user;
     const likes = Object.assign(blog.likes);
-    if(likes.includes(userId)) {
-      const index = likes.indexOf(userId);
-      likes.splice(index, 1);
+    const isLiked = likes.findIndex(item => item.id === user.id);
+    if(isLiked !== -1) {
+      likes.splice(isLiked, 1);
       blog.likes = likes;
     } else {
-      blog.likes.push(userId);
+      blog.likes.push(user);
     }
     blog.save()
     .then(() => {
-      const data = { data: blog.likes.length, message: 'success', status: 200 };
+      const data = { data: blog.likes, message: 'success', status: 200 };
       res.status(200).json(data);
     })
     .catch((err) => res.status(400).json('Error: ' + err));

@@ -62,9 +62,9 @@ export const deleteBlog = (id) => {
   };
 };
 
-export const likeUnlikeBlog = (blogId, userId) => {
-  const url = `http://localhost:5000/like/${blogId}`;
-  const data = { userId }
+export const likeUnlikeBlog = (blogId, user) => {
+  const url = `http://localhost:5000/blog/like/${blogId}`;
+  const data = { user }
   return (dispatch) => {
     return axios({
       url,

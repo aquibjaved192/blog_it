@@ -6,7 +6,8 @@ import { getLocalStorage } from '../../sharedComponents/helpers';
 import defaultImage from '../../public/images/default.jpg';
 import style from './blog.module.scss';
 import EditDeleteButtons from '../../sharedComponents/editDeleteButtons';
-import Modal from '../../sharedComponents/Modal';
+import Confirm from '../../sharedComponents/Modal/confirm';
+import UserList from '../../sharedComponents/Modal/userList';
 
 class Blog extends React.PureComponent {
   constructor(props){
@@ -15,6 +16,8 @@ class Blog extends React.PureComponent {
       showDeleteConfirmModal: false,
       liked: false,
       likesCount: 0,
+      totalLikes: [],
+      showLikesModal: false,
     }
   }
 
@@ -29,8 +32,9 @@ class Blog extends React.PureComponent {
     if(JSON.stringify(prevProps.data) !== JSON.stringify(data)) {
       if(data && data.likes) {
         this.setState({
-          liked: user ? data.likes.includes(user.id) : false,
+          liked: user ? data.likes.find(item => item.id === user.id) : false,
           likesCount: data.likes.length,
+          totalLikes: data.likes,
         });
       }
     }
@@ -53,20 +57,31 @@ class Blog extends React.PureComponent {
     deleteBlog(router.query.id);
   }
 
+  handleLikesModal = (showLikesModal) => {
+    this.setState({
+      showLikesModal,
+    })
+  }
+
   handleLike = async () => {
     const { liked } = this.state;
     const { likeUnlikeBlog, router } = this.props;
     const user = getLocalStorage('user');
-    const likesCount = await likeUnlikeBlog(router.query.id, user.id);
-    this.setState({
-      liked: !liked,
-      likesCount,
-    });
+    if(user) {
+      const likesArray = await likeUnlikeBlog(router.query.id, user);
+      this.setState({
+        liked: !liked,
+        likesCount: likesArray.length,
+        totalLikes: likesArray,
+      });
+    } else {
+      router.push('/login');
+    }
   }
 
   render() {
     const { data } = this.props;
-    const { showDeleteConfirmModal, liked, likesCount } = this.state;
+    const { showDeleteConfirmModal, liked, likesCount, showLikesModal, totalLikes } = this.state;
     const monthArray = [
     'January',
     'February',
@@ -92,12 +107,20 @@ class Blog extends React.PureComponent {
         {data && data.title && (
           <div className={`${style.blog} m-auto rounded-lg position-relative`}>
             {showDeleteConfirmModal && (
-              <Modal 
+              <Confirm 
                 show={showDeleteConfirmModal}
                 onHide={this.handleDelete}
                 heading="Warning"
                 body="Are you sure you want to delete this blog?"
                 confirmDelete={this.confirmDelete}
+              />
+            )}
+            {showLikesModal && (
+              <UserList 
+                show={showLikesModal}
+                onHide={this.handleLikesModal}
+                heading="Likes"
+                list={totalLikes}
               />
             )}
             <div className={`banner border-secondary d-flex align-items-center rounded ${style.blogBanner}`}>
@@ -146,11 +169,16 @@ class Blog extends React.PureComponent {
                     __html: data.content,
                   }} 
                 />
-                <small className="color-primary font-weight-bold pt-3">{likesCount} Likes</small>
-                {user && (
-                  <div className='mb-3 border border-secondary rounded'>
+                <button 
+                  className='text-white-50 bg-transparent border-0'
+                  onClick={() => this.handleLikesModal(true)}
+                >
+                  {likesCount} likes
+                </button>
+                <div className='mb-5 mb-lg-4 row m-0'>
+                  <div className='col-6 p-0'>
                     <button
-                      className={`${liked ? 'primary-bg color-secondary' : 'bg-transparent text-white'} border-0 font-weight-bold pb-2 pt-2 rounded w-100`}
+                      className={`${liked ? 'color-primary primary-border' : 'text-white-50 border border-secondary'} bg-transparent w-100 font-weight-bold pb-2 pt-2 rounded-left`}
                       onClick={this.handleLike}
                     >
                       <svg 
@@ -161,13 +189,32 @@ class Blog extends React.PureComponent {
                       >
                         <path 
                           d="M12.9785 3.57828C12.7888 1.50469 11.3104 0.000248228 9.46029 0.000248228C8.22771 0.000248228 7.09914 0.658765 6.4641 1.71418C5.83481 0.645113 4.75249 0 3.53966 0C1.6898 0 0.211204 1.50444 0.0216922 3.57803C0.00669125 3.66962 -0.0548127 4.15166 0.132199 4.93776C0.401716 6.07161 1.02426 7.10295 1.93206 7.91958L6.4611 12L11.0679 7.91983C11.9757 7.10295 12.5982 6.07186 12.8678 4.93776C13.0548 4.15191 12.9933 3.66987 12.9785 3.57828Z" 
-                          fill={`${liked ? "#303e46" : "#ffffff"}`}>
+                          fill={`${liked ? "#60cccf" : "rgba(255, 255, 255, 0.5)"}`}>
                         </path>
                       </svg>
-                        {' '}{liked ? "You liked it" : "Give it a like"}
+                        {' '}Like
                     </button>
                   </div>
-                )}
+                  <div className='col-6 p-0'>
+                    <button
+                      className='bg-transparent text-white-50 w-100 font-weight-bold pb-2 pt-2 rounded-right border border-secondary border-left-0'
+                      // onClick={this.handleLike}
+                    >
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 14 12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9.22727 0H4.77273C2.13182 0 0 2.1913 0 4.90435C0 7.61739 2.13182 9.80869 4.77273 9.80869H8.14546L10.0864 11.6522C10.2455 11.8261 10.4682 11.9652 10.7227 12C11.0409 12 11.2318 11.7217 11.2318 11.1652V9.3913C12.8545 8.62609 14 6.92174 14 4.93913C14 2.1913 11.8682 0 9.22727 0Z"
+                          fill="rgba(255, 255, 255, 0.5)"
+                        />
+                      </svg>
+                        {' '}Comments(7)
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -185,7 +232,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getBlog: (id) => dispatch(getBlog(id)),
     deleteBlog: (id) => dispatch(deleteBlog(id)),
-    likeUnlikeBlog: (blogId, userId) => dispatch(likeUnlikeBlog(blogId, userId)),
+    likeUnlikeBlog: (blogId, user) => dispatch(likeUnlikeBlog(blogId, user)),
   };
 };
 
