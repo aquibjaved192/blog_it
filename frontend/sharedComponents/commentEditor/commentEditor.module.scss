@@ -1,0 +1,11 @@
+.title {
+  width: 100%;
+  padding: 7px;
+  border-radius: 5px;
+  background: transparent;
+  outline: none;
+}
+
+.title::-webkit-scrollbar {
+  display: none;
+}

@@ -1,5 +1,6 @@
 let Blog = require('../models/blog.model');
 let User = require('../models/user.model');
+let Comment = require('../models/blogComment.model');
 
 module.exports = {
   // api to add a new blog
@@ -129,5 +130,23 @@ module.exports = {
       res.status(200).json(data);
     })
     .catch((err) => res.status(400).json('Error: ' + err));
+  },
+
+  blogComment : (req, res) => {
+    const data = req.body;
+    const comment = new Comment(data);
+    comment
+    .save()
+    .then(() => {
+      const data = { data: [], message: 'success', status: 200 };
+      res.status(200).json(data);
+    })
+    .catch((err) => res.status(400).json('Error: ' + err));
+  },
+
+  getBlogComment: async (req, res) => {
+    comments = await Comment.find({blogId: req.params.id});
+    const data = { data: comments };
+    res.status(200).json(data);
   }
 };

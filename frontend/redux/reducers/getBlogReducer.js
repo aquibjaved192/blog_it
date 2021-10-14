@@ -2,6 +2,7 @@ import axios from 'axios';
 import Router from 'next/router'
 // Action Types
 const GET_BLOG = 'GET_BLOG';
+const GET_COMMENTS = 'GET_COMMENTS';
 
 // Action dispatchers
 
@@ -82,8 +83,46 @@ export const likeUnlikeBlog = (blogId, user) => {
   };
 };
 
+export const commentBlog = (data) => {
+  const url = `http://localhost:5000/blog/comment`;
+  return (dispatch) => {
+    return axios({
+      url,
+      headers: {
+      'Content-Type': 'application/json',
+      },
+      data,
+      method: 'post',
+      responseType: 'json',
+    })
+    .then(() => {
+      dispatch(getComments(data.blogId));
+    })
+    .catch((err) => console.log(err));
+  };
+};
+
+export const getComments = (id) => {
+  const url = `http://localhost:5000/blog/comment/${id}`;
+  return (dispatch) => {
+    return axios({
+      url,
+      headers: {
+      'Content-Type': 'application/json',
+      },
+      method: 'get',
+      responseType: 'json',
+    })
+    .then((res) => {
+      dispatch({ type: GET_COMMENTS, payload: res.data.data });
+    })
+    .catch((err) => console.log(err));
+  };
+};
+
 const initialState = {
  data: {},
+ comments: [],
 };
 
 // Reducer
@@ -92,6 +131,8 @@ const getBlogReducer = (state = initialState, action) => {
  switch (action.type) {
   case GET_BLOG:
    return { ...state, data: action.payload };
+  case GET_COMMENTS:
+  return { ...state, comments: action.payload };
   default:
    return { ...state };
  }

@@ -1,13 +1,14 @@
 import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
-import { getBlog, deleteBlog, likeUnlikeBlog } from '../../redux/reducers/getBlogReducer';
+import { getBlog, deleteBlog, likeUnlikeBlog, commentBlog, getComments } from '../../redux/reducers/getBlogReducer';
 import { getLocalStorage } from '../../sharedComponents/helpers';
 import defaultImage from '../../public/images/default.jpg';
 import style from './blog.module.scss';
 import EditDeleteButtons from '../../sharedComponents/editDeleteButtons';
 import Confirm from '../../sharedComponents/Modal/confirm';
 import UserList from '../../sharedComponents/Modal/userList';
+import CommentEditor from '../../sharedComponents/commentEditor';
 
 class Blog extends React.PureComponent {
   constructor(props){
@@ -18,6 +19,7 @@ class Blog extends React.PureComponent {
       likesCount: 0,
       totalLikes: [],
       showLikesModal: false,
+      showComments: false,
     }
   }
 
@@ -63,6 +65,12 @@ class Blog extends React.PureComponent {
     })
   }
 
+  handleShowComments = () => {
+    this.setState({
+      showComments: true,
+    })
+  }
+
   handleLike = async () => {
     const { liked } = this.state;
     const { likeUnlikeBlog, router } = this.props;
@@ -80,8 +88,15 @@ class Blog extends React.PureComponent {
   }
 
   render() {
-    const { data } = this.props;
-    const { showDeleteConfirmModal, liked, likesCount, showLikesModal, totalLikes } = this.state;
+    const { data, commentBlog, getComments, comments, router } = this.props;
+    const {
+      showDeleteConfirmModal,
+      liked,
+      likesCount,
+      showLikesModal,
+      totalLikes,
+      showComments,
+    } = this.state;
     const monthArray = [
     'January',
     'February',
@@ -175,7 +190,7 @@ class Blog extends React.PureComponent {
                 >
                   {likesCount} likes
                 </button>
-                <div className='mb-5 mb-lg-4 row m-0'>
+                <div className='row m-0'>
                   <div className='col-6 p-0'>
                     <button
                       className={`${liked ? 'color-primary primary-border' : 'text-white-50 border border-secondary'} bg-transparent w-100 font-weight-bold pb-2 pt-2 rounded-left`}
@@ -198,7 +213,7 @@ class Blog extends React.PureComponent {
                   <div className='col-6 p-0'>
                     <button
                       className='bg-transparent text-white-50 w-100 font-weight-bold pb-2 pt-2 rounded-right border border-secondary border-left-0'
-                      // onClick={this.handleLike}
+                      onClick={this.handleShowComments}
                     >
                       <svg
                         width="15"
@@ -211,10 +226,38 @@ class Blog extends React.PureComponent {
                           fill="rgba(255, 255, 255, 0.5)"
                         />
                       </svg>
-                        {' '}Comments(7)
+                        {' '}Comments
                     </button>
                   </div>
                 </div>
+                {showComments && (
+                  <div className='mb-5 mb-lg-4'>
+                    {comments.map(item => (
+                      <div className="d-flex pt-3">
+                        <img className="rounded-circle mr-3" height="35px" width="35px" src={defaultImage} alt="default-image" />
+                        <div className="border-bottom border-secondary pb-2 w-100">
+                          <small
+                            onClick={() => router.push('/profile/[id]', `/profile/${item.user.id}`)}
+                            className="cursor-pointer font-weight-bold d-block text-white"
+                          >
+                            {item.user.name}  
+                          </small>
+                          <small
+                            className="text-white-50 text-small"
+                          >
+                            {item.user.profession}
+                          </small>
+                          <p className='text-white-50 mb-0'>{item.comment}</p>
+                        </div>
+                      </div>
+                    ))}
+                    <CommentEditor
+                      commentBlog={commentBlog}
+                      user={user}
+                      getComments={getComments}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -226,6 +269,7 @@ class Blog extends React.PureComponent {
 
 const mapStateToProps = (state) => ({
   data: state.getBlog.data,
+  comments: state.getBlog.comments,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -233,6 +277,8 @@ const mapDispatchToProps = (dispatch) => {
     getBlog: (id) => dispatch(getBlog(id)),
     deleteBlog: (id) => dispatch(deleteBlog(id)),
     likeUnlikeBlog: (blogId, user) => dispatch(likeUnlikeBlog(blogId, user)),
+    commentBlog: (data) => dispatch(commentBlog(data)),
+    getComments: (id) => dispatch(getComments(id)),
   };
 };
 
