@@ -15,6 +15,10 @@ const blogCommentSchema = new Schema({
    type: String,
    required: true,
  },
+ likes: {
+   type: Array,
+   required: false,
+ },
 });
 
 const BlogComment = mongoose.model('BlogComment', blogCommentSchema);

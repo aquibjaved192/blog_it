@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
-import { getBlog, deleteBlog, likeUnlikeBlog, commentBlog, getComments } from '../../redux/reducers/getBlogReducer';
+import { getBlog, deleteBlog, likeUnlikeBlog, commentBlog, getComments, likeComments } from '../../redux/reducers/getBlogReducer';
 import { getLocalStorage } from '../../sharedComponents/helpers';
 import defaultImage from '../../public/images/default.jpg';
 import style from './blog.module.scss';
@@ -9,6 +9,7 @@ import EditDeleteButtons from '../../sharedComponents/editDeleteButtons';
 import Confirm from '../../sharedComponents/Modal/confirm';
 import UserList from '../../sharedComponents/Modal/userList';
 import CommentEditor from '../../sharedComponents/commentEditor';
+import Comment from '../../sharedComponents/comment';
 
 class Blog extends React.PureComponent {
   constructor(props){
@@ -90,7 +91,7 @@ class Blog extends React.PureComponent {
   }
 
   render() {
-    const { data, commentBlog, getComments, comments, router } = this.props;
+    const { data, commentBlog, getComments, comments, likeComments } = this.props;
     const {
       showDeleteConfirmModal,
       liked,
@@ -136,7 +137,7 @@ class Blog extends React.PureComponent {
               <UserList 
                 show={showLikesModal}
                 onHide={this.handleLikesModal}
-                heading="Likes"
+                heading="Blog"
                 list={totalLikes}
               />
             )}
@@ -187,71 +188,55 @@ class Blog extends React.PureComponent {
                   }} 
                 />
                 <button 
-                  className='text-white-50 bg-transparent border-0'
+                  className='text-white-50 bg-transparent text-small font-weight-bold border-0 pl-0'
                   onClick={() => this.handleLikesModal(true)}
                 >
-                  {likesCount} likes
+                  {likesCount} Likes
                 </button>
-                <div className='row m-0'>
-                  <div className='col-6 p-0'>
-                    <button
-                      className={`${liked ? 'color-primary primary-border' : 'text-white-50 border border-secondary'} bg-transparent w-100 font-weight-bold pb-2 pt-2 rounded-left`}
-                      onClick={this.handleLike}
+                <div className='border-bottom border-secondary pb-2 pt-1'>
+                  <button
+                    className={`${liked ? 'color-primary' : 'text-white-50'} pl-0 bg-transparent text-medium font-weight-bold border-0`}
+                    onClick={this.handleLike}
+                  >
+                    <svg 
+                      width="15" 
+                      height="15" 
+                      viewBox="0 0 13 12" 
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <svg 
-                        width="15" 
-                        height="15" 
-                        viewBox="0 0 13 12" 
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path 
-                          d="M12.9785 3.57828C12.7888 1.50469 11.3104 0.000248228 9.46029 0.000248228C8.22771 0.000248228 7.09914 0.658765 6.4641 1.71418C5.83481 0.645113 4.75249 0 3.53966 0C1.6898 0 0.211204 1.50444 0.0216922 3.57803C0.00669125 3.66962 -0.0548127 4.15166 0.132199 4.93776C0.401716 6.07161 1.02426 7.10295 1.93206 7.91958L6.4611 12L11.0679 7.91983C11.9757 7.10295 12.5982 6.07186 12.8678 4.93776C13.0548 4.15191 12.9933 3.66987 12.9785 3.57828Z" 
-                          fill={`${liked ? "#60cccf" : "rgba(255, 255, 255, 0.5)"}`}>
-                        </path>
-                      </svg>
-                        {' '}Like
-                    </button>
-                  </div>
-                  <div className='col-6 p-0'>
-                    <button
-                      className='bg-transparent text-white-50 w-100 font-weight-bold pb-2 pt-2 rounded-right border border-secondary border-left-0'
-                      onClick={this.handleShowComments}
+                      <path 
+                        d="M12.9785 3.57828C12.7888 1.50469 11.3104 0.000248228 9.46029 0.000248228C8.22771 0.000248228 7.09914 0.658765 6.4641 1.71418C5.83481 0.645113 4.75249 0 3.53966 0C1.6898 0 0.211204 1.50444 0.0216922 3.57803C0.00669125 3.66962 -0.0548127 4.15166 0.132199 4.93776C0.401716 6.07161 1.02426 7.10295 1.93206 7.91958L6.4611 12L11.0679 7.91983C11.9757 7.10295 12.5982 6.07186 12.8678 4.93776C13.0548 4.15191 12.9933 3.66987 12.9785 3.57828Z" 
+                        fill={`${liked ? "#60cccf" : "rgba(255, 255, 255, 0.5)"}`}>
+                      </path>
+                    </svg>
+                      {' '}Like
+                  </button>
+                  <button
+                    className='bg-transparent text-white-50 font-weight-bold border-0 text-medium'
+                    onClick={this.handleShowComments}
+                  >
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 14 12"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <svg
-                        width="15"
-                        height="15"
-                        viewBox="0 0 14 12"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M9.22727 0H4.77273C2.13182 0 0 2.1913 0 4.90435C0 7.61739 2.13182 9.80869 4.77273 9.80869H8.14546L10.0864 11.6522C10.2455 11.8261 10.4682 11.9652 10.7227 12C11.0409 12 11.2318 11.7217 11.2318 11.1652V9.3913C12.8545 8.62609 14 6.92174 14 4.93913C14 2.1913 11.8682 0 9.22727 0Z"
-                          fill="rgba(255, 255, 255, 0.5)"
-                        />
-                      </svg>
-                        {' '}Comments
-                    </button>
-                  </div>
+                      <path
+                        d="M9.22727 0H4.77273C2.13182 0 0 2.1913 0 4.90435C0 7.61739 2.13182 9.80869 4.77273 9.80869H8.14546L10.0864 11.6522C10.2455 11.8261 10.4682 11.9652 10.7227 12C11.0409 12 11.2318 11.7217 11.2318 11.1652V9.3913C12.8545 8.62609 14 6.92174 14 4.93913C14 2.1913 11.8682 0 9.22727 0Z"
+                        fill="rgba(255, 255, 255, 0.5)"
+                      />
+                    </svg>
+                      {' '}Comments
+                  </button>
                 </div>
                 {showComments && (
-                  <div className=''>
+                  <div>
                     {comments.map(item => (
-                      <div className="d-flex pt-3">
-                        <img className="rounded-circle mr-3" height="35px" width="35px" src={defaultImage} alt="default-image" />
-                        <div className="border-bottom border-secondary pb-2 w-100">
-                          <small
-                            onClick={() => router.push('/profile/[id]', `/profile/${item.user.id}`)}
-                            className="cursor-pointer font-weight-bold d-block text-white"
-                          >
-                            {item.user.name}  
-                          </small>
-                          <small
-                            className="text-white-50 text-small"
-                          >
-                            {item.user.profession}
-                          </small>
-                          <p className='text-white-50 mb-0'>{item.comment}</p>
-                        </div>
-                      </div>
+                      <Comment 
+                        data={item}
+                        key={item._id}
+                        likeComments={likeComments}
+                      />
                     ))}
                     <CommentEditor
                       commentBlog={commentBlog}
@@ -281,6 +266,7 @@ const mapDispatchToProps = (dispatch) => {
     likeUnlikeBlog: (blogId, user) => dispatch(likeUnlikeBlog(blogId, user)),
     commentBlog: (data) => dispatch(commentBlog(data)),
     getComments: (id) => dispatch(getComments(id)),
+    likeComments: (id, data) => dispatch(likeComments(id, data)),
   };
 };
 

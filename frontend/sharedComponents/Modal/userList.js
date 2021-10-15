@@ -14,10 +14,9 @@ class UserList extends React.PureComponent {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header className="border-bottom border-secondary" closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            {heading}
-          </Modal.Title>
+        <Modal.Header className="border-bottom border-secondary align-items-center" closeButton>
+          <h5 className='text-white font-weight-bold m-0'>{heading}</h5>
+          <small className='text-white-50'>({list.length} Total)</small>
         </Modal.Header>
         <Modal.Body>
           {list.map(item => (

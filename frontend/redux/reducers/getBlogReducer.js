@@ -120,6 +120,25 @@ export const getComments = (id) => {
   };
 };
 
+export const likeComments = (id, user) => {
+  const url = `http://localhost:5000/blog/comment/like/${id}`;
+  return (dispatch) => {
+    return axios({
+      url,
+      headers: {
+      'Content-Type': 'application/json',
+      },
+      data: { user },
+      method: 'patch',
+      responseType: 'json',
+    })
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch((err) => console.log(err));
+  };
+};
+
 const initialState = {
  data: {},
  comments: [],

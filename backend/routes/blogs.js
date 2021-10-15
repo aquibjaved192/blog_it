@@ -10,5 +10,6 @@ router.delete('/deleteBlog/:id', blogController.deleteBlog);
 router.patch('/blog/like/:id', blogController.likeBlog);
 router.post('/blog/comment', blogController.blogComment);
 router.get('/blog/comment/:id', blogController.getBlogComment);
+router.patch('/blog/comment/like/:id', blogController.likeBlogComment);
 
 module.exports = router;

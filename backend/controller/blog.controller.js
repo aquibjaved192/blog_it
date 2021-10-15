@@ -134,6 +134,7 @@ module.exports = {
 
   blogComment : (req, res) => {
     const data = req.body;
+    data.likes = [];
     const comment = new Comment(data);
     comment
     .save()
@@ -148,5 +149,24 @@ module.exports = {
     comments = await Comment.find({blogId: req.params.id});
     const data = { data: comments };
     res.status(200).json(data);
-  }
+  },
+
+  likeBlogComment: async (req, res) => {
+    const comment = await Comment.findById(req.params.id);
+    const user = req.body.user;
+    const likes = Object.assign(comment.likes);
+    const isLiked = likes.findIndex(item => item.id === user.id);
+    if(isLiked !== -1) {
+      likes.splice(isLiked, 1);
+      comment.likes = likes;
+    } else {
+      comment.likes.push(user);
+    }
+    comment.save()
+    .then(() => {
+      const data = { data: comment.likes, message: 'success', status: 200 };
+      res.status(200).json(data);
+    })
+    .catch((err) => res.status(400).json('Error: ' + err));
+  },
 };
