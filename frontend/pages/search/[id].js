@@ -29,7 +29,7 @@ class Search extends React.PureComponent {
       searchData.map(item => (
         <BlogCard blog={item} key={item._id}/>
       )) : 
-      <h5 className="text-center font-weight-bold text-white">No records found for this search</h5>;
+      <h5 className="text-center font-weight-bold text-white w-100">No records found for this search</h5>;
       
     return(
       <div className={`col-lg-8 col-12 ${style.container}`}>

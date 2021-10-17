@@ -73,7 +73,7 @@ class BlogCard extends React.PureComponent {
                 className={`${style.continue} font-weight-bold d-inline`}
                 onClick={() => this.onClickCard('/blog/[id]', `/blog/${blog._id}`)}
                 >
-                ...Continue Reading
+                ...read more
               </span>
             </small>
           </div>

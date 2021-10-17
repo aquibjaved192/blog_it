@@ -59,25 +59,26 @@ module.exports = {
     let blogs = [];
 
     if (filter === 'all') {
-      blogs = await Blog.find();
+      blogs = await Blog.find().sort({ postDate: -1 });
     } else {
       const user = await User.findById(req.params.filter);
       const following = user.following;
       if(following.length > 0) {
-        blogs = await Blog.find({authorId : {$in: following}});
+        blogs = await Blog.find({authorId : {$in: following}}).sort({ postDate: -1 });
       } else {
-        blogs = await Blog.find();
+        blogs = await Blog.find().sort({ postDate: -1 });
       }
     }
-     
     blogs.forEach((blog) => {
       blog.content = blog.content.substring(0, 120);
     });
-    blogs.sort((a, b) => b.postDate - a.postDate);
-    const topBlogs = blogs.sort((a, b) => {
-      return b.hits - a.hits;
-    }).slice(0, 3);
+    const today = new Date().toISOString().slice(0, 10);
 
+    const topBlogs = await Blog.find({postDate: {
+      '$gte': `${today}T00:00:00.000Z`,
+      '$lt': `${today}T23:59:59.999Z`
+    }}).sort({ hits: -1 }).limit(3);
+    
     const data = { data: { blogs, topBlogs } };
     res.status(200).json(data);
   },
@@ -98,17 +99,13 @@ module.exports = {
   // api to fetch blogs using search by title
 
   getSearch: (req, res) => {
-    Blog.find({'title':{'$regex':req.params.key.split('&')[0],'$options':'i'}})
+    const count = req.params.key.split('&')[1] === '5' ? 5 : 0;
+    Blog.find({'title':{'$regex':req.params.key.split('&')[0],'$options':'i'}}).sort({postDate: -1}).limit(count)
     .then((blogs) => {
-      const matchedBlogs = [];
       blogs.forEach((blog) => {
-        blog.content = blog.content.substring(0, 120);
-        matchedBlogs.push(blog);
+        blog.content = blog.content.substring(0, 120).trim();
       });
-      matchedBlogs.sort((a, b) => b.postDate - a.postDate);
-      const count = req.params.key.split('&')[1];
-      const data = { data: count==='5' ? matchedBlogs.slice(0, 5) : matchedBlogs };
-      res.status(200).json(data);
+      res.status(200).json({data : blogs});
     })
     .catch((err) => res.status(400).json('Error: ' + err));
   },

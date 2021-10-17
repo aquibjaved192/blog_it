@@ -79,20 +79,18 @@ module.exports = {
       })
       .catch((err) => res.status(400).json('Error: ' + err));
 
-    await Blog.find({ authorId: req.params.id })
+    await Blog.find({ authorId: req.params.id }).sort({ postDate: -1 })
       .then((blogs) => {
         blogs.forEach((blog) => {
-          blog.content = blog.content.substring(0, 120);
+          blog.content = blog.content.substring(0, 120).trim();
         });
-
-        blogs.sort((a, b) => b.postDate - a.postDate);
-      
-        const topBlogs = blogs.sort((a, b) => {
-          return b.hits - a.hits;
-        }).slice(0, 3);
-
         response.blogs = blogs;
-        response.topBlogs = topBlogs;
+      })
+      .catch((err) => res.status(400).json('Error: ' + err));
+
+    await Blog.find({ authorId: req.params.id }).sort({ hits: -1 }).limit(3)
+      .then((blogs) => {
+        response.topBlogs = blogs;
       })
       .catch((err) => res.status(400).json('Error: ' + err));
       
@@ -105,7 +103,6 @@ module.exports = {
   addFollower: (req, res) => {
     let data = { data: [], message: 'success', status: 200 };
     const process = req.params.process;
-    console.log("********",req.body)
     User.findById(req.body.followerId)
     .then(user => {
       let following = [...user.following];
