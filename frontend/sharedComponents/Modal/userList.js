@@ -20,7 +20,7 @@ class UserList extends React.PureComponent {
         </Modal.Header>
         <Modal.Body>
           {list.map(item => (
-            <div className="d-flex pt-3">
+            <div className="d-flex pt-3" key={item.id}>
               <img className="rounded-circle mr-3" height="35px" width="35px" src={defaultImage} alt="default-image" />
               <div className="border-bottom border-secondary pb-2 w-100">
                 <small

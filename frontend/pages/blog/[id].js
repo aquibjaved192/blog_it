@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
-import { getBlog, deleteBlog, likeUnlikeBlog, commentBlog, getComments, likeComments, getReplies } from '../../redux/reducers/getBlogReducer';
+import { getBlog, deleteBlog, likeUnlikeBlog, commentBlog, getComments, likeComments, getReplies, deleteComments } from '../../redux/reducers/getBlogReducer';
 import { getLocalStorage } from '../../sharedComponents/helpers';
 import defaultImage from '../../public/images/default.jpg';
 import style from './blog.module.scss';
@@ -91,7 +91,7 @@ class Blog extends React.PureComponent {
   }
 
   render() {
-    const { data, commentBlog, getComments, comments, likeComments, router, getReplies } = this.props;
+    const { data, commentBlog, getComments, comments, likeComments, router, getReplies, deleteComments } = this.props;
     const {
       showDeleteConfirmModal,
       liked,
@@ -238,6 +238,7 @@ class Blog extends React.PureComponent {
                         likeComments={likeComments}
                         getReplies={getReplies}
                         commentBlog={commentBlog}
+                        deleteComments={deleteComments}
                       />
                     ))}
                     <Editor                         // show comment editor
@@ -274,6 +275,7 @@ const mapDispatchToProps = (dispatch) => {
     getComments: (id) => dispatch(getComments(id)),
     likeComments: (id, data) => dispatch(likeComments(id, data)),
     getReplies: (id) => dispatch(getReplies(id)),
+    deleteComments: (id, type, parentId) => dispatch(deleteComments(id, type, parentId)),
   };
 };
 

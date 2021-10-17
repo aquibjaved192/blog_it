@@ -3,11 +3,9 @@ import { withRouter } from 'next/router';
 import { getLocalStorage } from '../helpers';
 import defaultImage from '../../public/images/default.jpg';
 import UserList from '../Modal/userList';
-import Editor from './editor';
-import Reply from './reply';
 import Confirm from '../Modal/confirm';
 
-class Comment extends React.PureComponent {
+class Reply extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,8 +13,6 @@ class Comment extends React.PureComponent {
       likesCount: 0,
       totalLikes: [],
       showLikesModal: false,
-      showReplies: false,
-      replies: [],
       showDeleteConfirmModal: false,
     }
   }
@@ -38,24 +34,11 @@ class Comment extends React.PureComponent {
     })
   }
 
-  handleReplies = () => {
-    const { showReplies } = this.state;
-    this.setState({
-      showReplies: !showReplies
-    })
-  }
-
   handleDelete = () => {
     const { showDeleteConfirmModal } = this.state;
     this.setState({
       showDeleteConfirmModal: !showDeleteConfirmModal
     })
-  }
-
-  setReplies = (replies) => {
-    this.setState({
-      replies
-    });
   }
 
   setInitialLikes = () => {
@@ -82,18 +65,20 @@ class Comment extends React.PureComponent {
         totalLikes: likes,
       });
     } else {
-      router.push('/login')
+      router.push('/login');
     }
   }
 
   confirmDelete = async () => {
-    const { deleteComments, data } = this.props;
-    deleteComments(data._id, 'comment', data.parentId);
+    const { deleteComments, getReplies, data, setReplies } = this.props;
+    await deleteComments(data._id, 'reply', data.parentId);
+    const replies = await getReplies(data.parentId);
+    setReplies(replies);
   }
 
   render() {
-    const { data, router, getReplies, likeComments, commentBlog, deleteComments } = this.props;
-    const { liked, likesCount, showLikesModal, totalLikes, showReplies, replies, showDeleteConfirmModal } = this.state;
+    const { data, router } = this.props;
+    const { liked, likesCount, showLikesModal, totalLikes, showDeleteConfirmModal } = this.state;
     const user = getLocalStorage('user');
     return(
       <>
@@ -101,7 +86,7 @@ class Comment extends React.PureComponent {
           <UserList 
             show={showLikesModal}
             onHide={this.handleLikesModal}
-            heading="Comment"
+            heading="Replies"
             list={totalLikes}
           />
         )}
@@ -124,7 +109,7 @@ class Comment extends React.PureComponent {
               >
                 {data.user.name}  
               </small>
-              {user?.id === data.user.id && (
+              {data.user.id === user?.id && (
                 <div
                   className="d-inline float-right"
                   onClick={this.handleDelete}
@@ -156,37 +141,7 @@ class Comment extends React.PureComponent {
               >
                 Like
               </button>
-              <button
-                className={`${showReplies ? 'color-primary' : 'text-white-50'} border-0 p-0 bg-transparent font-weight-bold text-small`}
-                onClick={this.handleReplies}
-              >
-                {showReplies ? "Hide" : "Reply"}
-              </button>
             </div>
-            {data.type === 'comment' && showReplies && (
-              <>
-                {replies.map(item => (
-                  <Reply                        // show replies
-                    data={item}
-                    key={item._id}
-                    likeComments={likeComments}
-                    deleteComments={deleteComments}
-                    getReplies={getReplies}
-                    setReplies={this.setReplies}
-                  />
-                ))}
-                <Editor                         // show replies editor
-                  commentBlog={commentBlog}
-                  user={user}
-                  getComments={getReplies}
-                  placeholder="Type reply here..."
-                  btnText="Reply"
-                  itemId={data._id}
-                  type="reply"
-                  setReplies={this.setReplies}
-                />
-              </>
-            )}
           </div>
         </div>
       </>
@@ -194,4 +149,4 @@ class Comment extends React.PureComponent {
   }
 }
 
-export default withRouter(Comment);
+export default withRouter(Reply);

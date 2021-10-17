@@ -122,6 +122,26 @@ export const getComments = (id) => {
   };
 };
 
+export const deleteComments = (id, type, parentId) => {
+  const url = `http://localhost:5000/blog/comment/${id}`;
+  return (dispatch) => {
+    return axios({
+      url,
+      headers: {
+      'Content-Type': 'application/json',
+      },
+      method: 'delete',
+      responseType: 'json',
+    })
+    .then(() => {
+      if(type === 'comment') {
+        dispatch(getComments(parentId));
+      }
+    })
+    .catch((err) => console.log(err));
+  };
+};
+
 export const getReplies = (id) => {
   const url = `http://localhost:5000/blog/comment/replies/${id}`;
   return (dispatch) => {

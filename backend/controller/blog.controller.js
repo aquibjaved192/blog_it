@@ -175,4 +175,17 @@ module.exports = {
     })
     .catch((err) => res.status(400).json('Error: ' + err));
   },
+
+  deleteBlogComment: async (req, res) => {
+    const comment = await Comment.findById(req.params.id);
+    comment.delete()
+    .then(async () => {
+      if(comment.type === 'comment') {
+        await Comment.deleteMany({parentId: req.params.id, type: "reply"});
+      }
+      const data = { data: [], message: 'success', status: 200 };
+      res.status(200).json(data);
+    })
+    .catch((err) => res.status(400).json('Error: ' + err));
+  }
 };

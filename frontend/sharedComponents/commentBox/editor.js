@@ -17,8 +17,8 @@ class CommentEditor extends React.PureComponent {
     if(type === 'comment') {
       getComments(itemId);
     } else if(type === 'reply') {
-      const replies = await getComments(itemId);
-      setReplies(replies);
+      const new_replies = await getComments(itemId);
+      setReplies(new_replies);
     }
   }
 
@@ -78,10 +78,10 @@ class CommentEditor extends React.PureComponent {
           <img className="rounded-circle mr-3" height="35px" width="35px" src={defaultImage} alt="default-image" />
           <div className="w-100">
             <small
-              onClick={() => router.push('/profile/[id]', `/profile/${user.id}`)}
+              onClick={() => user ? router.push('/profile/[id]', `/profile/${user.id}`) : () => {}}
               className="cursor-pointer font-weight-bold d-block text-white"
             >
-              {user.name}  
+              {user ? user.name : 'Blog!T User'}  
             </small>
             <textarea
               id="comment"
@@ -97,6 +97,7 @@ class CommentEditor extends React.PureComponent {
                   this.postData();
                 }
               }}
+              disabled={!user}
             />
           </div>
         </div>
@@ -104,6 +105,7 @@ class CommentEditor extends React.PureComponent {
           <button
             className="rounded color-primary pl-3 pr-3 primary-border bg-transparent"
             onClick={this.postData}
+            disabled={!user}
           >
             {btnText}
           </button>
