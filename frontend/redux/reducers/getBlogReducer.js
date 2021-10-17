@@ -96,7 +96,9 @@ export const commentBlog = (data) => {
       responseType: 'json',
     })
     .then(() => {
-      dispatch(getComments(data.blogId));
+      if(data.type === 'comment') {
+        dispatch(getComments(data.parentId));
+      }
     })
     .catch((err) => console.log(err));
   };
@@ -115,6 +117,24 @@ export const getComments = (id) => {
     })
     .then((res) => {
       dispatch({ type: GET_COMMENTS, payload: res.data.data });
+    })
+    .catch((err) => console.log(err));
+  };
+};
+
+export const getReplies = (id) => {
+  const url = `http://localhost:5000/blog/comment/replies/${id}`;
+  return (dispatch) => {
+    return axios({
+      url,
+      headers: {
+      'Content-Type': 'application/json',
+      },
+      method: 'get',
+      responseType: 'json',
+    })
+    .then((res) => {
+      return res.data.data;
     })
     .catch((err) => console.log(err));
   };

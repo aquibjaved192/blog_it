@@ -146,7 +146,13 @@ module.exports = {
   },
 
   getBlogComment: async (req, res) => {
-    comments = await Comment.find({blogId: req.params.id});
+    comments = await Comment.find({parentId: req.params.id, type: "comment"});
+    const data = { data: comments };
+    res.status(200).json(data);
+  },
+
+  getCommentReplies: async (req, res) => {
+    comments = await Comment.find({parentId: req.params.id, type: "reply"});
     const data = { data: comments };
     res.status(200).json(data);
   },

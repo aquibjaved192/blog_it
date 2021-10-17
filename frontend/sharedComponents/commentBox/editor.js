@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'next/router';
 import defaultImage from '../../public/images/default.jpg';
-import style from './commentEditor.module.scss';
+import style from './commentBox.module.scss';
 
 class CommentEditor extends React.PureComponent {
   constructor(props) {
@@ -12,9 +12,14 @@ class CommentEditor extends React.PureComponent {
     };
   }
 
-  componentDidMount() {
-    const { getComments, router } = this.props;
-    getComments(router.query.id);
+  async componentDidMount() {
+    const { getComments, itemId, setReplies, type } = this.props;
+    if(type === 'comment') {
+      getComments(itemId);
+    } else if(type === 'reply') {
+      const replies = await getComments(itemId);
+      setReplies(replies);
+    }
   }
 
   handleChange = (e) => {
@@ -38,17 +43,25 @@ class CommentEditor extends React.PureComponent {
 
   postData = async () => {
     const { comment } = this.state;
-    const { user, commentBlog, router } = this.props;
+    const { user, commentBlog, itemId, type, setReplies, getComments } = this.props;
     const data = {
-      blogId: router.query.id,
+      parentId: itemId,
       user,
       comment,
+      type,
     }
     this.toggleAble();
     await commentBlog(data);
+
+    if(type === 'reply') {
+      const replies = await getComments(itemId);
+      setReplies(replies);
+    }
+
     this.setState({
       comment: '',
     });
+
     const el = document.getElementById('comment');
     el.style.minHeight = '40px';
     el.blur();
@@ -58,15 +71,22 @@ class CommentEditor extends React.PureComponent {
 
   render() {
     const { comment, able } = this.state;
+    const { user, placeholder, btnText, router } = this.props;
     return (
       <>
         <div className="d-flex pt-3">
           <img className="rounded-circle mr-3" height="35px" width="35px" src={defaultImage} alt="default-image" />
           <div className="w-100">
+            <small
+              onClick={() => router.push('/profile/[id]', `/profile/${user.id}`)}
+              className="cursor-pointer font-weight-bold d-block text-white"
+            >
+              {user.name}  
+            </small>
             <textarea
               id="comment"
-              placeholder="Enter comment here..."
-              className={`${style.title} border border-secondary text-white-50`}
+              placeholder={placeholder}
+              className={`${style.title} border border-secondary text-white-50 mt-1`}
               rows="1"
               value={comment}
               disabled={able}
@@ -80,12 +100,12 @@ class CommentEditor extends React.PureComponent {
             />
           </div>
         </div>
-        <div className="text-right mt-2 mb-5">
+        <div className="text-right mt-2">
           <button
             className="rounded color-primary pl-3 pr-3 primary-border bg-transparent"
             onClick={this.postData}
           >
-            Post
+            {btnText}
           </button>
         </div>
       </>

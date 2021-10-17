@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const blogCommentSchema = new Schema({
- blogId: {
+ parentId: {
+  type: String,
+  required: true,
+ },
+ type: {
   type: String,
   required: true,
  },

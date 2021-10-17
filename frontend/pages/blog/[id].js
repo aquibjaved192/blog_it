@@ -1,15 +1,15 @@
 import React from 'react';
 import { withRouter } from 'next/router';
 import { connect } from 'react-redux';
-import { getBlog, deleteBlog, likeUnlikeBlog, commentBlog, getComments, likeComments } from '../../redux/reducers/getBlogReducer';
+import { getBlog, deleteBlog, likeUnlikeBlog, commentBlog, getComments, likeComments, getReplies } from '../../redux/reducers/getBlogReducer';
 import { getLocalStorage } from '../../sharedComponents/helpers';
 import defaultImage from '../../public/images/default.jpg';
 import style from './blog.module.scss';
 import EditDeleteButtons from '../../sharedComponents/editDeleteButtons';
 import Confirm from '../../sharedComponents/Modal/confirm';
 import UserList from '../../sharedComponents/Modal/userList';
-import CommentEditor from '../../sharedComponents/commentEditor';
-import Comment from '../../sharedComponents/comment';
+import Comment from '../../sharedComponents/commentBox/comment';
+import Editor from '../../sharedComponents/commentBox/editor';
 
 class Blog extends React.PureComponent {
   constructor(props){
@@ -91,7 +91,7 @@ class Blog extends React.PureComponent {
   }
 
   render() {
-    const { data, commentBlog, getComments, comments, likeComments } = this.props;
+    const { data, commentBlog, getComments, comments, likeComments, router, getReplies } = this.props;
     const {
       showDeleteConfirmModal,
       liked,
@@ -153,7 +153,7 @@ class Blog extends React.PureComponent {
                 src={defaultImage} 
                 alt="default-image" 
               />
-              <div className="w-100 ml-md-4 ml-lg-4 mt-3 mt-md-0 mt-lg-0 mb-5 mb-lg-4">
+              <div className="w-100 ml-md-4 ml-lg-4 mt-3 mt-md-0 mt-lg-0 mb-5 pb-5 mb-lg-4">
                 <div className="border-bottom border-secondary w-100 pb-2">
                   <div className="row m-0 flex-column flex-md-row flex-lg-row align-items-lg-end align-items-md-end justify-content-between">
                     <h3 className="font-weight-bold text-white col-12 col-md-10 col-lg-10 p-0">{data.title}</h3>
@@ -188,7 +188,7 @@ class Blog extends React.PureComponent {
                   }} 
                 />
                 <button 
-                  className='text-white-50 bg-transparent text-small font-weight-bold border-0 pl-0'
+                  className='text-white bg-transparent text-small font-weight-bold border-0 pl-0'
                   onClick={() => this.handleLikesModal(true)}
                 >
                   {likesCount} Likes
@@ -199,8 +199,8 @@ class Blog extends React.PureComponent {
                     onClick={this.handleLike}
                   >
                     <svg 
-                      width="15" 
-                      height="15" 
+                      width="12" 
+                      height="12" 
                       viewBox="0 0 13 12" 
                       xmlns="http://www.w3.org/2000/svg"
                     >
@@ -216,8 +216,8 @@ class Blog extends React.PureComponent {
                     onClick={this.handleShowComments}
                   >
                     <svg
-                      width="15"
-                      height="15"
+                      width="12"
+                      height="12"
                       viewBox="0 0 14 12"
                       xmlns="http://www.w3.org/2000/svg"
                     >
@@ -230,20 +230,26 @@ class Blog extends React.PureComponent {
                   </button>
                 </div>
                 {showComments && (
-                  <div>
+                  <>
                     {comments.map(item => (
-                      <Comment 
+                      <Comment                        // show comments
                         data={item}
                         key={item._id}
                         likeComments={likeComments}
+                        getReplies={getReplies}
+                        commentBlog={commentBlog}
                       />
                     ))}
-                    <CommentEditor
+                    <Editor                         // show comment editor
                       commentBlog={commentBlog}
                       user={user}
                       getComments={getComments}
+                      placeholder="Type comment here..."
+                      btnText="Comment"
+                      itemId={router.query.id}
+                      type="comment"
                     />
-                  </div>
+                  </>
                 )}
               </div>
             </div>
@@ -267,6 +273,7 @@ const mapDispatchToProps = (dispatch) => {
     commentBlog: (data) => dispatch(commentBlog(data)),
     getComments: (id) => dispatch(getComments(id)),
     likeComments: (id, data) => dispatch(likeComments(id, data)),
+    getReplies: (id) => dispatch(getReplies(id)),
   };
 };
 
