@@ -119,9 +119,23 @@
 }
 
 .scrollBar::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #1d272c;
 }
 
 .scrollBar::-webkit-scrollbar-thumb {
   background: #60cccf;
+}
+
+@media only screen and (min-width: 600px) {
+  .banner-body-margin {
+    position: sticky;
+    top: 90px;
+    height: calc(100vh - 90px);
+    overflow: hidden;
+  }
+
+  .cardsContainer {
+    height: calc(100vh - 140px);
+    overflow: auto;
+  }
 }

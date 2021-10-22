@@ -60,7 +60,7 @@ class Body extends React.PureComponent {
           <div className="col-12 mb-4 col-lg-3 p-lg-0">
             {toggleData.trends}
           </div>
-          <div className="col-lg-8 col-12 p-lg-0">
+          <div className="col-lg-8 col-12 p-lg-0 cardsContainer scrollBar">
             <div className="row m-0">
               {toggleData.cards}
             </div>
