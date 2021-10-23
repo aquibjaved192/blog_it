@@ -5,6 +5,11 @@
   left: 0;
   background: #1d272c;
   z-index: 2;
+  transition: top 0.5s;
+}
+
+.parentContainerHidden {
+  top: -70px;
 }
 
 .container {

@@ -6,6 +6,34 @@ import style from './header.module.scss';
 import Navigation from './navigation'
 
 class Header extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      scrollPos: typeof window !== 'undefined' ? window.pageYOffset : '',
+      visible: false,
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+
+  handleScroll = () => {
+    const { scrollPos } = this.state;
+
+    const currentScrollPos = window.pageYOffset;
+    const visible = scrollPos < currentScrollPos;
+
+    this.setState({
+      scrollPos: currentScrollPos,
+      visible
+    });
+  }
+
   showMobileMenu = () => {
     document.getElementById('navList').style.display = 'block';
     document.getElementById('menuOpen').style.display = 'none';
@@ -21,8 +49,9 @@ class Header extends React.PureComponent {
 
   render() {
     const { search, searchData, showSearch, showSearchChange, router } = this.props;
+    const { visible } = this.state;
     return (
-      <div className={style.parentContainer}>
+      <div className={`${style.parentContainer} ${visible ? style.parentContainerHidden : ''}`}>
         <div
           className={`${style.container} d-flex justify-content-between align-items-center pl-0 pr-0 pl-lg-3 pr-lg-3`}
         >
