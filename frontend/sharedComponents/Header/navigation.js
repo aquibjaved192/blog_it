@@ -45,10 +45,11 @@ class Navigation extends React.PureComponent {
   };
 
   onSubmit = async (values) => {
-    const { router } = this.props;
+    const { router, initialize } = this.props;
     if(values.search) {
       const key  = values.search.trim().toLowerCase().split(" ").join("%20");
-      router.push('/search/[id]', `/search/${key}`)
+      router.push('/search/[id]', `/search/${key}`);
+      initialize({});
     }
   }
 
@@ -61,7 +62,7 @@ class Navigation extends React.PureComponent {
 
   handleKeyDown = (e) => {
     const { cursor } = this.state;
-    const { searchData } = this.props;
+    const { searchData, initialize } = this.props;
     // arrow up/down button should select next/previous list element
     if (e.keyCode === 38 && cursor > 0) {
       this.setState( prevState => ({
@@ -83,6 +84,7 @@ class Navigation extends React.PureComponent {
       searchData,
       showSearch,
       showSearchChange,
+      initialize,
     } = this.props;
 
     const { isLoggedIn, cursor, selectedSearch } = this.state;
@@ -91,6 +93,7 @@ class Navigation extends React.PureComponent {
       <div
         onMouseDown={() => {
           router.push('/blog/[id]', `/blog/${item._id}`);
+          initialize({});
         }}
         key={item._id}
         className={`${cursor === index ? style.activeSearch : null} pl-3 pr-3 ${style.hoverSearch}`}
