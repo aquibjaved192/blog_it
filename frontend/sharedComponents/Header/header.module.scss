@@ -3,7 +3,7 @@
   width: 100%;
   top: 0;
   left: 0;
-  background: #1d272c;
+  background-image: linear-gradient(0deg, rgba(29, 39, 44, .1), #1d272c);
   z-index: 2;
   transition: top 0.5s;
 }
@@ -132,7 +132,7 @@
     margin-top: 0;
     min-height: fit-content;
     display: block;
-    background: #1d272c;
+    background: transparent;
     width: fit-content;
   }
 
