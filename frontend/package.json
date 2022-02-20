@@ -16,7 +16,7 @@
     "@ckeditor/ckeditor5-react": "^1.1.0",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.0",
-    "next": "^9.4.4",
+    "next": "^12.1.0",
     "next-redux-wrapper": "^6.0.2",
     "react": "^16.13.1",
     "react-bootstrap": "^1.6.1",
