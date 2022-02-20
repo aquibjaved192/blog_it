@@ -70,10 +70,10 @@ class BlogCard extends React.PureComponent {
                 className={style.content}
               />
               <span
-                className={`${style.continue} font-weight-bold d-inline`}
+                className={`${style.continue} font-weight-bold d-inline ml-1`}
                 onClick={() => this.onClickCard('/blog/[id]', `/blog/${blog._id}`)}
                 >
-                ...read more
+                read more
               </span>
             </small>
           </div>

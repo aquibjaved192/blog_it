@@ -1,5 +1,5 @@
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
-@import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 @import './reusableClasses.scss';
 @import './overwrite.scss';
 
@@ -24,7 +24,7 @@ div {
 }
 
 body {
-  font-family: 'monospace', sans-serif;
+  font-family: 'poppins', sans-serif;
   background: #1d272c;
 }
 
